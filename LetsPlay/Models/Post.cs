@@ -28,6 +28,7 @@ namespace LetsPlay.Models
         public string Location { get; set; }
 
         public PlayerSignups Signups { get; set; }
+        public Comments Comments { get; set; }
     }
 
     public enum EventType
