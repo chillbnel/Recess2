@@ -16,6 +16,11 @@ namespace LetsPlay.Models.Components
             _messages = messages;
         }
 
+        public async Task<IViewComponentResult> InvokeAsync(string username)
+        {
+            var userMessages = await _messages.GetAllMessagesForUser(username);
 
+            return View(userMessages);
+        }
     }
 }
