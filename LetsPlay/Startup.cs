@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using LetsPlay.Data;
 using LetsPlay.Models;
+using LetsPlay.Models.Interfaces;
+using LetsPlay.Models.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -47,6 +49,8 @@ namespace LetsPlay
             services.AddDbContext<LetsPlayDbContext>(options =>
             options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"])
                 );
+
+            services.AddScoped<IPost, PostService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
