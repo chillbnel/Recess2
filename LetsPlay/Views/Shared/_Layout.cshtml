@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using LetsPlay.Models
 
+@inject SignInManager<ApplicationUser> SignInManager
 
 <!DOCTYPE html>
 <html>
@@ -20,6 +21,24 @@
         <a href="#">Services</a>
         <a href="#">Clients</a>
         <a href="#">Contact</a>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <a href="@Url.Action("Index", "User")">Profile</a>
+            <form asp-action="Logout" asp-controller="Account" method="post">
+                <button type="submit">Logout</button>
+            </form>
+
+        }
+        @if (!SignInManager.IsSignedIn(User))
+        {
+            <form asp-action="Login" asp-controller="Account" method="get">
+                <button type="submit" class="login-button">Login</button>
+            </form>
+
+            <form asp-action="Register" asp-controller="Account" method="get">
+                <button type="submit">Register</button>
+            </form>
+        }
     </div>
 
     <!-- Use any element to open the sidenav -->

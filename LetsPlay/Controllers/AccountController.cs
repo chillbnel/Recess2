@@ -92,7 +92,6 @@ namespace LetsPlay.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel lvm)
         {
-
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(lvm.Email, lvm.Password, false, false);
@@ -101,13 +100,6 @@ namespace LetsPlay.Controllers
                 {
                     var userManager = _signInManager.UserManager;
                     var user = await userManager.FindByEmailAsync(lvm.Email);
-                    var claims = await userManager.GetClaimsAsync(user);
-                    var role = claims.Where(c => c.Type == ClaimTypes.Role).ToList();
-
-                    if (role.Where(r => r.Value == "Admin").Count() > 0)
-                    {
-                        return RedirectToAction("Index", "Admin");
-                    }
 
                     return RedirectToAction("Index", "Home");
                 }
