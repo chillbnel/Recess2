@@ -1,0 +1,36 @@
+﻿
+@using Microsoft.AspNetCore.Identity
+@using LetsPlay.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@model LetsPlay.Models.Post
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "_Layout";
+}
+
+<h2>Details</h2>
+<div>
+    <h2>@Html.DisplayFor(model => Model.Title)</h2>
+    <p>@Html.DisplayFor(model => Model.Description)</p>
+    <p> @Html.DisplayFor(model => Model.PostedDate)</p>
+    <p>@Html.DisplayFor(model => Model.Type)</p>
+    <p>@Html.DisplayFor(model => Model.Category)</p>
+    <p>@Html.DisplayFor(model => Model.Game)</p>
+    <p>@Html.DisplayFor(model => Model.EventDate)</p>
+    <p>@Html.DisplayFor(model => Model.Type)</p>
+
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <form method="post">
+            <label for=""></label>
+            <button type="submit">Join Event</button>
+        </form>
+    }
+    else
+    {
+        <p><a asp-controller="Account" asp-action="Login">Login</a> or <a asp-controller="Account" asp-action="Register">Register</a> to start playing games.</p>
+    }
+    </div>
+

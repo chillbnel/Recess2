@@ -49,7 +49,7 @@ namespace LetsPlay.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("ID,Username,Title,PostedDate,Type,Category,Game,Description,EventDate,MinPlayers,MaxPlayers,Location")] Post post)
+        public async Task<IActionResult> Create(Post post)
         {
             if (ModelState.IsValid)
             {
