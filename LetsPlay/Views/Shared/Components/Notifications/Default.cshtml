@@ -1,0 +1,18 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using LetsPlay.Models
+@inject SignInManager<ApplicationUser> SignInManager
+
+@model IEnumerable<LetsPlay.Models.Messages>
+
+<div>
+    @foreach (var item in Model)
+    {
+        <div>
+            <h2>@item.Title</h2>
+            <p>From: @item.Sender</p>
+            <p>On: @item.Date</p>
+            <p>Message:</p>
+            <p>@item.Body</p>
+        </div>
+    }
+</div>
