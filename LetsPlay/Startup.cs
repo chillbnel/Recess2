@@ -39,12 +39,14 @@ namespace LetsPlay
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer(Configuration["ConnectionStrings:UserProductionDb"])
+                );
+
             services.AddDbContext<LetsPlayDbContext>(options =>
-            {
-                options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]);
-                options.UseSqlServer(Configuration["ConnectionStrings:UserProductionDb"]);
-            }
-            );
+            options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"])
+                );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
