@@ -47,6 +47,7 @@ namespace LetsPlay.Controllers
                 // start the registration process
                 ApplicationUser user = new ApplicationUser()
                 {
+                    UserName = rvm.Email,
                     Email = rvm.Email,
                     Name = rvm.Name,
                     GamerTag = rvm.GamerTag,
@@ -58,6 +59,8 @@ namespace LetsPlay.Controllers
 
                 if (result.Succeeded)
                 {
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -84,7 +87,7 @@ namespace LetsPlay.Controllers
         /// <summary>
         /// Verifies user login credentials
         /// </summary>
-        /// <param name="rvm">Login ViewModel</param>
+        /// <param name="lvm">Login ViewModel</param>
         /// <returns>Home View</returns>
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel lvm)
