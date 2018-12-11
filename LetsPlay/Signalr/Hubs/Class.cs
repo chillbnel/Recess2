@@ -8,9 +8,9 @@ namespace LetsPlay.Signalr.Hubs
 {
     public class Chathub : Hub
     {
-        public void Send(string name, string message)
+        public Task Send(string name, string message)
         {
-            Clients.All.SendAsync(name, message);
+            return Clients.All.SendAsync(name, message);
         }
     }
 }

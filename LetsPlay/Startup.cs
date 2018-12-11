@@ -31,6 +31,8 @@ namespace LetsPlay
         {
             services.AddMvc();
 
+            services.AddSignalR();
+
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.Password.RequiredLength = 3;
