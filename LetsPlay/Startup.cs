@@ -63,6 +63,12 @@ namespace LetsPlay
             //Allows recognition of JS and CSS files
             app.UseStaticFiles();
 
+            //SignalR routing
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ChatHub>("/chatHub");
+            });
+
             //Default route
             app.UseMvc(routes =>
             {
