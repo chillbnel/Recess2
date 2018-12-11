@@ -32,6 +32,7 @@ namespace LetsPlay
             services.AddDbContext<LetsPlayDbContext>(options =>
             {
                 options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]);
+                options.UseSqlServer(Configuration["ConnectionStrings:UserProductionDb"]);
             }
             );
         }
