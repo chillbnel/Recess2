@@ -37,7 +37,8 @@ namespace LetsPlay.Models.Services
 
         public async Task<IEnumerable<Messages>> GetAllMessagesForUser(string username)
         {
-            throw new NotImplementedException();
+            var userMessages = await _context.Messages.Where(x => x.Recipient == username).ToListAsync();
+            return userMessages;
         }
 
         public async Task<Messages> GetSingleMessage(int? id)
