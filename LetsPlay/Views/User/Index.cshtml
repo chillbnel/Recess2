@@ -1,0 +1,19 @@
+﻿@model LetsPlay.Models.ApplicationUser
+
+@using Microsoft.AspNetCore.Identity
+
+@{
+    Layout = "_Layout";
+}
+<dl>
+    <dt>@Html.DisplayNameFor(model => model.Name)</dt>
+    <dd>@Html.DisplayFor(model => model.Name)</dd>
+    <dt>@Html.DisplayNameFor(model => model.GamerTag)</dt>
+    <dd>@Html.DisplayFor(model => model.GamerTag)</dd>
+    <dt>@Html.DisplayNameFor(model => model.Age)</dt>
+    <dd>@Html.DisplayFor(model => model.Age)</dd>
+    <dt>@Html.DisplayNameFor(model => model.Location)</dt>
+    <dd>@Html.DisplayFor(model => model.Location)</dd>
+</dl>
+
+
