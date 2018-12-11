@@ -59,6 +59,7 @@ namespace LetsPlay
 
             //Allows recognition of JS and CSS files
             app.UseStaticFiles();
+            app.UseAuthentication();
 
             //Default route
             app.UseMvc(routes =>
