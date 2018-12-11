@@ -42,11 +42,13 @@ namespace LetsPlay.Controllers
         /// Create view for new posts
         /// </summary>
         /// <returns>View with form</returns>
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
+        [HttpPost]
         public async Task<IActionResult> Create([Bind("ID,Username,Title,PostedDate,Type,Category,Game,Description,EventDate,MinPlayers,MaxPlayers,Location")] Post post)
         {
             if (ModelState.IsValid)
