@@ -11,18 +11,18 @@ namespace LetsPlay.Models
     {
         [Required]
         [Display(Name = "Name")]
-        public string firstName { get; set; }
+        public string Name { get; set; }
 
         [Required]
         [Display(Name = "Gamer Tag")]
-        public string gamerTag { get; set; }
+        public string GamerTag { get; set; }
 
         [Required]
         [Display(Name = "Age")]
-        public DateTime age { get; set; }
+        public int Age { get; set; }
 
         [Required]
         [Display(Name = "Your Location")]
-        public DateTime location { get; set; }
+        public string Location { get; set; }
     }
 }
