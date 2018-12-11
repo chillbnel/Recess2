@@ -1,0 +1,45 @@
+﻿@model LetsPlay.Models.ViewModels.LoginViewModel
+
+@{
+}
+
+<h2>Register</h2>
+
+<form method="post">
+
+    <label asp-for="Name"></label>
+    <input asp-for="Name" />
+    <span asp-validation-for="Name"></span>
+
+    <label asp-for="GamerTag"></label>
+    <input asp-for="GamerTag" />
+    <span asp-validation-for="GamerTag"></span>
+
+
+    <label asp-for="Email"></label>
+    <input asp-for="Email" />
+    <span asp-validation-for="Email"></span>
+
+
+    <label asp-for="Age"></label>
+    <input asp-for="Age" />
+    <span asp-validation-for="Age"></span>    
+    
+    <label asp-for="Location"></label>
+    <input asp-for="Location" />
+    <span asp-validation-for="Location"></span>
+
+
+    <label asp-for="Password"></label>
+    <input asp-for="Password" />
+    <span asp-validation-for="Password"></span>
+
+
+    <label asp-for="ConfirmPassword"></label>
+    <input asp-for="ConfirmPassword" />
+    <span asp-validation-for="ConfirmPassword"></span>
+
+
+    <button type="submit">Register!</button>
+
+</form>
