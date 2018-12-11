@@ -47,7 +47,6 @@ namespace LetsPlay.Controllers
                 // start the registration process
                 ApplicationUser user = new ApplicationUser()
                 {
-                    UserName = rvm.Email,
                     Email = rvm.Email,
                     Name = rvm.Name,
                     GamerTag = rvm.GamerTag,
