@@ -37,5 +37,24 @@ namespace LetsPlay.Controllers
             if (post == null) return NotFound();
             return View(post);
         }
+
+        /// <summary>
+        /// Create view for new posts
+        /// </summary>
+        /// <returns>View with form</returns>
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> Create([Bind("ID,Username,Title,PostedDate,Type,Category,Game,Description,EventDate,MinPlayers,MaxPlayers,Location")] Post post)
+        {
+            if (ModelState.IsValid)
+            {
+                await _posts.CreatePost(post);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(post);
+        }
     }
 }
