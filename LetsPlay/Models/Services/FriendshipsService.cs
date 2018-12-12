@@ -70,9 +70,14 @@ namespace LetsPlay.Models.Services
 
         }
 
-        public Task RemoveFriend(string username1, string username2)
+        public async Task RemoveFriend(string username1, string username2)
         {
-            throw new NotImplementedException();
+            var friend = await _context.Friendships.FindAsync(username1, username2);
+            if (friend == null)
+                friend = await _context.Friendships.FindAsync(username1, username2);
+
+            _context.Friendships.Remove(friend);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<ApplicationUser>> GetFriendRequestsForUser(string username)
