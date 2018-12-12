@@ -22,7 +22,8 @@ namespace LetsPlay.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.GeneralChat = await _chat.GetMessages();
-            return View(_post.GetLastTenPosts());
+            ViewBag.Posts = await _post.GetLastTenPosts();
+            return View();
         }
     }
 }

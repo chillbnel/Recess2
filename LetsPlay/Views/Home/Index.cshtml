@@ -11,6 +11,17 @@
 
 <h1>Let's Play!!!</h1>
 
+<div>
+    <h2>New Postings</h2>
+    @foreach (var item in (List<Post>)ViewBag.Posts)
+    {
+        <div>
+            <a asp-action="Details" asp-route-id="@item.ID" asp-controller="Post"><h2>@Html.DisplayFor(modelItem => item.Title)</h2></a>
+            <p>@Html.DisplayFor(modelItem => item.Description)</p>
+        </div>
+    }
+</div>
+
 <ul id="messagesList">
     @foreach (var item in ((List<GeneralChat>)ViewBag.GeneralChat))
     {
