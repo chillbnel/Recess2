@@ -29,5 +29,6 @@ namespace LetsPlay.Data
         public DbSet<Friendships> Friendships { get; set; }
         public DbSet<Messages> Messages { get; set; }
         public DbSet<PlayerSignups> Signups { get; set; }
+        public DbSet<GeneralChat> GeneralChats { get; set; }
     }
 }

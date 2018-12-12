@@ -2,23 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+using LetsPlay.Models;
 using LetsPlay.Models.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace LetsPlay.Controllers
 {
     public class HomeController : Controller
     {
-        private IPost _context;
+        private readonly IChat _chat;
+        private readonly IPost _post;
 
-        public HomeController(IPost context)
+        public HomeController(IChat chat, IPost post)
         {
-            _context = context;
+            _chat = chat;
+            _post = post;
         }
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.GetLastTenPosts());
+            ViewBag.GeneralChat = await _chat.GetMessages();
+            ViewBag.Posts = await _post.GetLastTenPosts();
+            return View();
         }
     }
 }

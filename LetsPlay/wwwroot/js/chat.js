@@ -6,7 +6,7 @@ var connection = new signalR.HubConnectionBuilder().withUrl('/chatHub').build();
 // Parses message and appends to ul
 connection.on("ReceiveMessage", function (user, message) {
     var msg = message.replace(/&/g, "&amp;").replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    var encodedMsg = user + ' says ' + msg;
+    var encodedMsg = user + ': ' + msg;
     var li = document.createElement('li');
     li.textContent = encodedMsg;
     document.getElementById('messagesList').appendChild(li);
@@ -18,7 +18,7 @@ connection.start().catch(function (err) {
 });
 
 // Logic message sending button
-document.getElementById('sendButton').addEventListener('click', function (event) {
+document.getElementById('sendButton').addEventListener('submit', function (event) {
     console.log(event);
     var user = document.getElementById('userInput').value;
     var message = document.getElementById('messageInput').value;

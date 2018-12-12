@@ -1,7 +1,7 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using LetsPlay.Models
+﻿@using LetsPlay.Models
+@using Microsoft.AspNetCore.Identity;
+@model LetsPlay.Models.GeneralChat
 @inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
 
 @{
     ViewData["Title"] = "Home";
@@ -11,17 +11,9 @@
 
 <h1>Let's Play!!!</h1>
 
-@*@section scripts
-        {
-        <script src="~/scripts/signalr.js"></script>
-    }
-
-    @page*@
-@model IEnumerable<LetsPlay.Models.Post>
-
 <div>
     <h2>New Postings</h2>
-    @foreach (var item in Model)
+    @foreach (var item in (List<Post>)ViewBag.Posts)
     {
         <div>
             <a asp-action="Details" asp-route-id="@item.ID" asp-controller="Post"><h2>@Html.DisplayFor(modelItem => item.Title)</h2></a>
@@ -30,8 +22,34 @@
     }
 </div>
 
+<ul id="messagesList">
+    @foreach (var item in ((List<GeneralChat>)ViewBag.GeneralChat))
+    {
+        <li>@Html.DisplayFor(modelItem => item.User): @Html.DisplayFor(modelItem => item.Message)</li>
+    }
+</ul>
 
-<div class="container">
+@if (SignInManager.IsSignedIn(User))
+{
+    <form method="post" id="sendButton">
+        @*<label asp-for="User" class="control-label"></label>*@
+        <input asp-for="User" class="form-control" id="userInput" type="hidden" value="@SignInManager.UserManager.GetUserName(User)" />
+
+        <label asp-for="Message" class="control-label"></label>
+        <input asp-for="Message" class="form-control" id="messageInput" />
+        <input type="submit" value="Send Message" />
+    </form>
+}
+else
+{
+    <p>You are not logged in.</p>
+    <a href="/account/login">Log In</a>
+    <a href="/account/register">Register</a>
+}
+
+
+
+@*<div class="container">
     <div class="row">&nbsp;</div>
     <div class="row">
         <div class="col-6">&nbsp;</div>
@@ -46,13 +64,13 @@
         <div class="col-12">
             <hr />
         </div>
-    </div>
-    <div class="row">
-        <div class="col-6">&nbsp;</div>
-        <div class="col-6">
-            <ul id="messagesList"></ul>
-        </div>
-    </div>
-</div>
+    </div>*@
+@*<div class="row">
+    <div class="col-6">&nbsp;</div>
+    <div class="col-6">
+        <ul id="messagesList"></ul>
+    </div>*@
+@*</div>
+    </div>*@
 <script src="~/lib/signalr/dist/browser/signalr.js"></script>
 <script src="~/js/chat.js"></script>
