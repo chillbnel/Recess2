@@ -58,5 +58,27 @@ namespace LetsPlay.Controllers
             }
             return View(post);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> SignUpForEvent(string userName, int postID)
+        {
+            PlayerSignups playerSignUpForEvent = new PlayerSignups()
+            {
+                Username = userName,
+                PostID = postID
+            };
+
+            await _posts.CreateASignUp(playerSignUpForEvent);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveSignUpForEvent(string userName, int postID)
+        {
+            await _posts.DeleteASignUp(userName, postID);
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

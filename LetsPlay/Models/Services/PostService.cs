@@ -79,5 +79,18 @@ namespace LetsPlay.Models.Services
             _context.Posts.Update(post);
             await _context.SaveChangesAsync();
         }
+
+        public async Task CreateASignUp(PlayerSignups paplayerSignUpForEvent)
+        {
+            _context.Signups.Add(paplayerSignUpForEvent);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteASignUp(string userName, int postID)
+        {
+            var eventSignedUp = await _context.Signups.FindAsync(userName, postID);
+            _context.Signups.Remove(eventSignedUp);
+            await _context.SaveChangesAsync();
+        }
     }
 }
