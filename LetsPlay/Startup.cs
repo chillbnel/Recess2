@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using LetsPlay.Hubs;
 
 namespace LetsPlay
 {
@@ -32,6 +33,8 @@ namespace LetsPlay
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddSignalR();
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
@@ -64,6 +67,12 @@ namespace LetsPlay
             //Allows recognition of JS and CSS files
             app.UseStaticFiles();
             app.UseAuthentication();
+
+            //SignalR routing
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ChatHub>("/chatHub");
+            });
 
             //Default route
             app.UseMvc(routes =>
