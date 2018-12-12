@@ -9,6 +9,8 @@ namespace LetsPlay.Models.Interfaces
     {
         Task<IEnumerable<Post>> GetAllPosts();
 
+        Task<IEnumerable<Post>> GetLastTenPosts();
+
         Task<Post> GetPost(int? id);
 
         Task CreatePost(Post post);
