@@ -50,6 +50,15 @@ namespace LetsPlay.Models.Services
         }
 
         /// <summary>
+        ///  Get last 10 posts from the Database
+        /// </summary>
+        /// <returns>A list of posts</returns>
+        public async Task<IEnumerable<Post>> GetLastTenPosts()
+        {
+            return await _context.Posts.Take(10).ToListAsync();
+        }
+
+        /// <summary>
         ///  Get a single post from the database
         /// </summary>
         /// <param name="id">the post id to be displayed</param>
@@ -69,6 +78,26 @@ namespace LetsPlay.Models.Services
         {
             _context.Posts.Update(post);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task CreateASignUp(PlayerSignups paplayerSignUpForEvent)
+        {
+            _context.Signups.Add(paplayerSignUpForEvent);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteASignUp(string userName, int postID)
+        {
+            var eventSignedUp = await _context.Signups.FindAsync(userName, postID);
+            _context.Signups.Remove(eventSignedUp);
+            await _context.SaveChangesAsync();
+        }
+
+        public IEnumerable<PlayerSignups> GetAllPlayersSignedUp(int postID)
+        {
+            var allSignUps = _context.Signups.Where(x => x.PostID == postID);
+
+            return allSignUps;
         }
     }
 }

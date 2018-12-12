@@ -94,12 +94,12 @@ namespace LetsPlay.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(lvm.Email, lvm.Password, false, false);
+                var result = await _signInManager.PasswordSignInAsync(lvm.UserName, lvm.Password, false, false);
 
                 if (result.Succeeded)
                 {
                     var userManager = _signInManager.UserManager;
-                    var user = await userManager.FindByEmailAsync(lvm.Email);
+                    var user = await userManager.FindByNameAsync(lvm.UserName);
 
                     return RedirectToAction("Index", "Home");
                 }

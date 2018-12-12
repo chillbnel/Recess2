@@ -9,18 +9,18 @@ namespace LetsPlay.Models.Components
 {
     public class Notifications : ViewComponent
     {
-        private IMessages _messages;
+        private IFriendships _friendships;
 
-        public Notifications(IMessages messages)
+        public Notifications(IFriendships friendships)
         {
-            _messages = messages;
+            _friendships = friendships;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(string username)
         {
-            var userMessages = await _messages.GetAllMessagesForUser(username);
+            var pendingFriends = await _friendships.GetReceivedFriendRequestsForUser(username);
 
-            return View(userMessages);
+            return View(pendingFriends);
         }
     }
 }

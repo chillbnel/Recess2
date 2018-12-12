@@ -24,5 +24,19 @@ namespace LetsPlay.Controllers
 
             return Redirect($"/users/{to}");
         }
+
+        public async Task<IActionResult> AcceptRequest(string from, string to)
+        {
+            await _friendships.AcceptFriendRequest(from, to);
+
+            return Redirect($"/users/{to}");
+        }
+
+        public async Task<IActionResult> RemoveFriend(string user1, string user2)
+        {
+            await _friendships.RemoveFriend(user1, user2);
+
+            return Redirect($"/users/{user2}");
+        }
     }
 }
