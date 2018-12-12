@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 
 namespace LetsPlay.Models.Interfaces
 {
-    interface IChat
+    public interface IChat
     {
         Task<IEnumerable<GeneralChat>> GetMessages();
+
+        Task CreateMessage(GeneralChat chat);
     }
 }

@@ -16,6 +16,13 @@ namespace LetsPlay.Models.Services
         {
             _context = context;
         }
+
+        public async Task CreateMessage(GeneralChat chat)
+        {
+            _context.GeneralChats.Add(chat);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<GeneralChat>> GetMessages()
         {
             return await _context.GeneralChats.ToListAsync();
