@@ -18,15 +18,25 @@
     }
 </ul>
 
+@if (SignInManager.IsSignedIn(User))
+{
+    <form method="post" id="sendButton">
+        @*<label asp-for="User" class="control-label"></label>*@
+        <input asp-for="User" class="form-control" id="userInput" type="hidden" value="@SignInManager.UserManager.GetUserName(User)" />
 
-<form method="post" id="sendButton">
-    <label asp-for="User" class="control-label"></label>
-    <input asp-for="User" class="form-control" id="userInput" />
+        <label asp-for="Message" class="control-label"></label>
+        <input asp-for="Message" class="form-control" id="messageInput" />
+        <input type="submit" value="Send Message" />
+    </form>
+}
+else
+{
+    <p>You are not logged in.</p>
+    <a href="/account/login">Log In</a>
+    <a href="/account/register">Register</a>
+}
 
-    <label asp-for="Message" class="control-label"></label>
-    <input asp-for="Message" class="form-control" id="messageInput" />
-    <input type="submit" value="Send Message" />
-</form>
+
 
 @*<div class="container">
     <div class="row">&nbsp;</div>
