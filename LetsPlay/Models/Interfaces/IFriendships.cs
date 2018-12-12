@@ -9,12 +9,14 @@ namespace LetsPlay.Models.Interfaces
     {
         Task<IEnumerable<Friendships>> GetAllFriendships();
 
-        Task<IEnumerable<Friendships>> GetFriendshipsForUser();
+        Task<IEnumerable<ApplicationUser>> GetFriendRequestsForUser(string username);
 
-        Task CreateFriendRequest();
+        Task<IEnumerable<ApplicationUser>> GetFriendshipsForUser(string username);
 
-        Task AcceptFriendRequest();
+        Task CreateFriendRequest(string username1, string username2);
 
-        Task RemoveFriend();
+        Task AcceptFriendRequest(int id);
+
+        Task RemoveFriend(string username1, string username2);
     }
 }
