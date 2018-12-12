@@ -19,10 +19,21 @@ connection.start().catch(function (err) {
 
 // Logic message sending button
 document.getElementById('sendButton').addEventListener('click', function (event) {
+    console.log(event);
     var user = document.getElementById('userInput').value;
     var message = document.getElementById('messageInput').value;
     connection.invoke('SendMessage', user, message).catch(function (err) {
         return console.error(err.toString());
     });
     event.preventDefault();
+});
+
+//Pressing enter also allows message sending
+document.getElementById('messageInput').addEventListener('keyup', function (e) {
+    e.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById('sendButton').click();
+        console.log(this);
+        this.value = '';
+    }
 });
