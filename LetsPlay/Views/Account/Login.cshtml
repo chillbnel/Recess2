@@ -7,13 +7,13 @@
 <form method="post">
     <div asp-validation-summary="All"></div>
 
-    <label asp-for="Email"></label>
-    <input asp-for="Email" alt="Email" placeholder="Email" />
-    <span asp-validation-for="Email"></span>
+    <label asp-for="Email" class="control-label"></label>
+    <input asp-for="Email" alt="Email" placeholder="Email" class="form-control" />
+    <span asp-validation-for="Email" class="text-danger"></span>
 
-    <label asp-for="Password"></label>
-    <input asp-for="Password" alt="Password" placeholder="Password" />
-    <span asp-validation-for="Password"></span>
+    <label asp-for="Password" class="control-label"></label>
+    <input asp-for="Password" alt="Password" placeholder="Password" class="form-control" />
+    <span asp-validation-for="Password" class="text-danger"></span>
 
     <button type="submit">Login!</button>
 
