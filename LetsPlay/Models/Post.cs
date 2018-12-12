@@ -27,7 +27,7 @@ namespace LetsPlay.Models
         public int MaxPlayers { get; set; }
         public string Location { get; set; }
 
-        public PlayerSignups Signups { get; set; }
+        public IEnumerable <PlayerSignups> Signups { get; set; }
         public Comments Comments { get; set; }
     }
 
