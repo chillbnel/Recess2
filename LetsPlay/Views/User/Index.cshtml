@@ -1,6 +1,8 @@
 ﻿@model LetsPlay.Models.ApplicationUser
-
 @using Microsoft.AspNetCore.Identity
+@using LetsPlay.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
 
 @{
     Layout = "_Layout";
@@ -15,6 +17,16 @@
     <dt>@Html.DisplayNameFor(model => model.Location)</dt>
     <dd>@Html.DisplayFor(model => model.Location)</dd>
 </dl>
+
+@if (Model.UserName != SignInManager.UserManager.GetUserName(User))
+{
+    <form asp-action="SendRequest" asp-controller="Friendships" method="post">
+        <input type="hidden" name="from" value="@SignInManager.UserManager.GetUserName(User)" />
+        <input type="hidden" name="to" value="@Model.UserName" />
+        <button type="submit">Send Friend Request</button>
+    </form>
+
+}
 
 <form asp-action="Logout" asp-controller="Account" method="post">
     <button type="submit">Logout</button>

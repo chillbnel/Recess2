@@ -18,9 +18,11 @@ namespace LetsPlay.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> Index()
+        [HttpGet("/users/{username}")]
+        public async Task<IActionResult> Index(string username)
         {
-            ApplicationUser AppUser = await _userManager.GetUserAsync(HttpContext.User);
+            ApplicationUser AppUser = await _userManager.FindByNameAsync(username);
+
             return View(AppUser);
         }
     }

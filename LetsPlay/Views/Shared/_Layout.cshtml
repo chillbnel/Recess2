@@ -23,7 +23,7 @@
         <a href="#">Dashboard</a>
         @if (SignInManager.IsSignedIn(User))
         {
-            <a href="@Url.Action("Index", "User")">Your Profile</a>
+            <a href="/users/@SignInManager.UserManager.GetUserName(User)">Your Profile</a>
         }
         @if (!SignInManager.IsSignedIn(User))
         {
