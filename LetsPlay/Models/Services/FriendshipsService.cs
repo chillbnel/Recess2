@@ -55,7 +55,7 @@ namespace LetsPlay.Models.Services
             var column2 = await _context.Friendships.Where(x => x.User2 == username && x.Accepted == true).ToListAsync();
 
             var friends1 = column1.Select(x => x.User2);
-            var friends2 = column1.Select(x => x.User1);
+            var friends2 = column2.Select(x => x.User1);
 
             var allFriends = friends1.Concat(friends2);
 
@@ -63,7 +63,7 @@ namespace LetsPlay.Models.Services
 
             foreach (string user in allFriends)
             {
-                ApplicationUser appUser = await _userManager.FindByNameAsync(username);
+                ApplicationUser appUser = await _userManager.FindByNameAsync(user);
                 friendsToUsers.Add(appUser);
             }
 
@@ -91,7 +91,7 @@ namespace LetsPlay.Models.Services
 
             foreach (string user in requested)
             {
-                ApplicationUser appUser = await _userManager.FindByNameAsync(username);
+                ApplicationUser appUser = await _userManager.FindByNameAsync(user);
                 friendsToUsers.Add(appUser);
             }
 
@@ -108,7 +108,7 @@ namespace LetsPlay.Models.Services
 
             foreach (string user in requestee)
             {
-                ApplicationUser appUser = await _userManager.FindByNameAsync(username);
+                ApplicationUser appUser = await _userManager.FindByNameAsync(user);
                 friendsToUsers.Add(appUser);
             }
 
