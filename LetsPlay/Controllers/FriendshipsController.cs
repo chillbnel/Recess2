@@ -20,9 +20,9 @@ namespace LetsPlay.Controllers
 
         public async Task<IActionResult> SendRequest(string from, string to)
         {
+            await _friendships.CreateFriendRequest(from, to);
 
-
-            return View();
+            return Redirect($"/users/{to}");
         }
     }
 }
