@@ -27,16 +27,22 @@ namespace LetsPlay.Controllers
         {
             ApplicationUser AppUser = await _userManager.FindByNameAsync(username);
 
-            var userFriends = await _friendships.GetFriendshipsForUser(username);
-            var userSentRequests = await _friendships.GetSentFriendRequestsForUser(username);
-            var userReceivedRequests = await _friendships.GetSentFriendRequestsForUser(username);
+            var user = HttpContext.User;
+            var currentUser = _userManager.GetUserName(user);
+
+            var viewUserFriends = await _friendships.GetFriendshipsForUser(username);
+
+            var userFriends = await _friendships.GetFriendshipsForUser(currentUser);
+            var userSentRequests = await _friendships.GetSentFriendRequestsForUser(currentUser);
+            var userReceivedRequests = await _friendships.GetReceivedFriendRequestsForUser(currentUser);
 
             FriendshipsViewModel fvm = new FriendshipsViewModel()
             {
                 User = AppUser,
                 Friends = userFriends,
                 ReceivedRequests = userReceivedRequests,
-                SentRequests = userSentRequests
+                SentRequests = userSentRequests,
+                ViewUserFriends = viewUserFriends
             };
 
             return View(fvm);

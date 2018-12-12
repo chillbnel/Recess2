@@ -9,9 +9,8 @@ namespace LetsPlay.Models.ViewModels
     public class LoginViewModel
     {
         [Required]
-        [DataType(DataType.EmailAddress)]
-        [Display(Name = "Enter Your Username or Email")]
-        public string Email { get; set; }
+        [Display(Name = "Enter Your Username")]
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
