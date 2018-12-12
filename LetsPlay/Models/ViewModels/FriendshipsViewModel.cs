@@ -9,6 +9,7 @@ namespace LetsPlay.Models.ViewModels
     {
         public ApplicationUser User { get; set; }
         public IEnumerable<ApplicationUser> Friends { get; set; }
-        public IEnumerable<ApplicationUser> FriendRequests{ get; set; }
+        public IEnumerable<ApplicationUser> SentRequests { get; set; }
+        public IEnumerable<ApplicationUser> ReceivedRequests { get; set; }
     }
 }

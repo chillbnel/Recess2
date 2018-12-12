@@ -33,12 +33,13 @@ namespace LetsPlay.Models.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task AcceptFriendRequest(int id)
+        public async Task AcceptFriendRequest(string username1, string username2)
         {
-            var result = await _context.Friendships.FindAsync(id);
-            result.Accepted = true;
+            var request = await _context.Friendships.FindAsync(username2, username1);
 
-            _context.Friendships.Update(result);
+            request.Accepted = true;
+
+            _context.Friendships.Update(request);
             await _context.SaveChangesAsync();
         }
 
@@ -74,26 +75,38 @@ namespace LetsPlay.Models.Services
         {
             var friend = await _context.Friendships.FindAsync(username1, username2);
             if (friend == null)
-                friend = await _context.Friendships.FindAsync(username1, username2);
+                friend = await _context.Friendships.FindAsync(username2, username1);
 
             _context.Friendships.Remove(friend);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<ApplicationUser>> GetFriendRequestsForUser(string username)
+        public async Task<IEnumerable<ApplicationUser>> GetSentFriendRequestsForUser(string username)
         {
             var column1 = await _context.Friendships.Where(x => x.User1 == username && x.Accepted == false).ToListAsync();
 
-            var column2 = await _context.Friendships.Where(x => x.User2 == username && x.Accepted == false).ToListAsync();
-
-            var friends1 = column1.Select(x => x.User2);
-            var friends2 = column1.Select(x => x.User1);
-
-            var allFriends = friends1.Concat(friends2);
+            var requested = column1.Select(x => x.User2);
 
             List<ApplicationUser> friendsToUsers = new List<ApplicationUser>();
 
-            foreach (string user in allFriends)
+            foreach (string user in requested)
+            {
+                ApplicationUser appUser = await _userManager.FindByNameAsync(username);
+                friendsToUsers.Add(appUser);
+            }
+
+            return friendsToUsers;
+        }
+
+        public async Task<IEnumerable<ApplicationUser>> GetReceivedFriendRequestsForUser(string username)
+        {
+            var column2 = await _context.Friendships.Where(x => x.User2 == username && x.Accepted == false).ToListAsync();
+
+            var requestee = column2.Select(x => x.User1);
+
+            List<ApplicationUser> friendsToUsers = new List<ApplicationUser>();
+
+            foreach (string user in requestee)
             {
                 ApplicationUser appUser = await _userManager.FindByNameAsync(username);
                 friendsToUsers.Add(appUser);
