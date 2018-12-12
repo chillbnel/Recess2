@@ -92,5 +92,12 @@ namespace LetsPlay.Models.Services
             _context.Signups.Remove(eventSignedUp);
             await _context.SaveChangesAsync();
         }
+
+        public IEnumerable<PlayerSignups> GetAllPlayersSignedUp(int postID)
+        {
+            var allSignUps = _context.Signups.Where(x => x.PostID == postID);
+
+            return allSignUps;
+        }
     }
 }

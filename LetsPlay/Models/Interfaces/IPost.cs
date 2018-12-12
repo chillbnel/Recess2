@@ -22,5 +22,7 @@ namespace LetsPlay.Models.Interfaces
         Task CreateASignUp(PlayerSignups paplayerSignUpForEvent);
 
         Task DeleteASignUp(string userName, int postID);
+
+        IEnumerable<PlayerSignups> GetAllPlayersSignedUp(int postID);
     }
 }

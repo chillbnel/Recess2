@@ -1,5 +1,6 @@
 ﻿using LetsPlay.Models;
 using LetsPlay.Models.Interfaces;
+using LetsPlay.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -35,7 +36,15 @@ namespace LetsPlay.Controllers
             if (id == null) return NotFound();
             Post post = await _posts.GetPost(id);
             if (post == null) return NotFound();
-            return View(post);
+            var allSignUps = _posts.GetAllPlayersSignedUp(id.Value);
+
+            SignupViewModel svm = new SignupViewModel()
+            {
+                Post = post,
+                SignUps = allSignUps
+            };
+
+            return View(svm);
         }
 
         /// <summary>

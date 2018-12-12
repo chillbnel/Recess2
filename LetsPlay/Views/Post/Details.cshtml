@@ -1,9 +1,10 @@
 ﻿
 @using Microsoft.AspNetCore.Identity
 @using LetsPlay.Models
+@using LetsPlay.Models.ViewModels
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
-@model LetsPlay.Models.Post
+@model LetsPlay.Models.ViewModels.SignupViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -12,19 +13,27 @@
 
 <h2>Details</h2>
 <div>
-    <h2>@Html.DisplayFor(model => Model.Title)</h2>
-    <p>@Html.DisplayFor(model => Model.Description)</p>
-    <p> @Html.DisplayFor(model => Model.PostedDate)</p>
-    <p>@Html.DisplayFor(model => Model.Type)</p>
-    <p>@Html.DisplayFor(model => Model.Category)</p>
-    <p>@Html.DisplayFor(model => Model.Game)</p>
-    <p>@Html.DisplayFor(model => Model.EventDate)</p>
-    <p>@Html.DisplayFor(model => Model.Type)</p>
+    <h2>@Html.DisplayFor(model => Model.Post.Title)</h2>
+    <p>@Html.DisplayFor(model => Model.Post.Description)</p>
+    <p> @Html.DisplayFor(model => Model.Post.PostedDate)</p>
+    <p>@Html.DisplayFor(model => Model.Post.Type)</p>
+    <p>@Html.DisplayFor(model => Model.Post.Category)</p>
+    <p>@Html.DisplayFor(model => Model.Post.Game)</p>
+    <p>@Html.DisplayFor(model => Model.Post.EventDate)</p>
+    <p>@Html.DisplayFor(model => Model.Post.Type)</p>
+
+    <p>Player's Signedup:</p>
+    @foreach (var user in Model.SignUps)
+    {
+        <a href="/users/@user.Username">@user.Username</a>
+    }
 
     @if (SignInManager.IsSignedIn(User))
     {
-        <form method="post">
-            <label for=""></label>
+
+        <form asp-controller="Post" asp-action="SignUpForEvent">
+            <input type="hidden" name="userName" value="@SignInManager.UserManager.GetUserName(User)" />
+            <input type="hidden" name="postID" value="@Model.Post.ID" />
             <button type="submit">Join Event</button>
         </form>
     }
@@ -32,5 +41,5 @@
     {
         <p><a asp-controller="Account" asp-action="Login">Login</a> or <a asp-controller="Account" asp-action="Register">Register</a> to start playing games.</p>
     }
-    </div>
+</div>
 
