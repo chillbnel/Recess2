@@ -9,10 +9,19 @@ using System.Threading.Tasks;
 namespace LetsPlay.Hubs
 {
     public class ChatHub : Hub
+
     {
+        private readonly IChat _chat;
+
+        public ChatHub(IChat context)
+        {
+            _chat = context;
+        }
         public async Task SendMessage(string user, string message)
         {
+
             await Clients.All.SendAsync("ReceiveMessage", user, message);
+            await _chat.CreateMessage(new GeneralChat() { User = user, Message = message });
         }
     }
 }

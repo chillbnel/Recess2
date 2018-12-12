@@ -19,17 +19,8 @@ namespace LetsPlay.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _chat.GetMessages());
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task Create([Bind("ID,User,Message")] GeneralChat chat)
-        {
-            if (ModelState.IsValid)
-            {
-                await _chat.CreateMessage(chat);
-            }
+            ViewBag.GeneralChat = await _chat.GetMessages();
+            return View();
         }
     }
 }

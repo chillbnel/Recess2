@@ -16,10 +16,9 @@ namespace LetsPlay.Models.Components
             _chat = chat;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public IViewComponentResult Invoke(IEnumerable<GeneralChat> chat)
         {
-            var history = await _chat.GetMessages();
-            return View(history);
+            return View(chat);
         }
     }
 }
