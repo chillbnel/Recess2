@@ -47,9 +47,27 @@ namespace LetsPlay.Models.Services
             return await _context.Friendships.ToListAsync();
         }
 
-        public async Task<IEnumerable<Friendships>> GetFriendshipsForUser(string username)
+        public async Task<IEnumerable<ApplicationUser>> GetFriendshipsForUser(string username)
         {
-            return await _context.Friendships.Where(x => x.User1 == username || x.User2 == username).Where(y => y.Accepted == true).ToListAsync();
+            var column1 = await _context.Friendships.Where(x => x.User1 == username && x.Accepted == true).ToListAsync();
+
+            var column2 = await _context.Friendships.Where(x => x.User2 == username && x.Accepted == true).ToListAsync();
+
+            var friends1 = column1.Select(x => x.User2);
+            var friends2 = column1.Select(x => x.User1);
+
+            var allFriends = friends1.Concat(friends2);
+
+            List<ApplicationUser> friendsToUsers = new List<ApplicationUser>();
+
+            foreach (string user in allFriends)
+            {
+                ApplicationUser appUser = await _userManager.FindByNameAsync(username);
+                friendsToUsers.Add(appUser);
+            }
+
+            return friendsToUsers;
+
         }
 
         public Task RemoveFriend(string username1, string username2)
@@ -77,11 +95,6 @@ namespace LetsPlay.Models.Services
             }
 
             return friendsToUsers;
-        }
-
-        Task<IEnumerable<ApplicationUser>> IFriendships.GetFriendshipsForUser(string username)
-        {
-            throw new NotImplementedException();
         }
     }
 }
