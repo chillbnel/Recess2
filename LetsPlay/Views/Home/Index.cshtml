@@ -1,4 +1,9 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@using LetsPlay.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
     ViewData["Title"] = "Home";
     Layout = "_Layout";
 }
@@ -13,6 +18,7 @@
 
     @page*@
 @model IEnumerable<LetsPlay.Models.Post>
+
 <div>
     <h2>New Postings</h2>
     @foreach (var item in Model)

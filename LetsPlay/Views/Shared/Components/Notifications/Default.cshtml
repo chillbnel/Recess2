@@ -2,17 +2,23 @@
 @using LetsPlay.Models
 @inject SignInManager<ApplicationUser> SignInManager
 
-@model IEnumerable<LetsPlay.Models.Messages>
+@model IEnumerable<ApplicationUser>
 
 <div>
     @foreach (var item in Model)
     {
-        <div>
-            <h2>@item.Title</h2>
-            <p>From: @item.Sender</p>
-            <p>On: @item.Date</p>
-            <p>Message:</p>
-            <p>@item.Body</p>
-        </div>
+    <div>
+        <h2>@item.GamerTag</h2>
+        <form asp-action="AcceptRequest" asp-controller="Friendships" method="post">
+            <input type="hidden" name="from" value="@SignInManager.UserManager.GetUserName(User)" />
+            <input type="hidden" name="to" value="@item.UserName" />
+            <button type="submit">Accept</button>
+        </form>
+        <form asp-action="RemoveFriend" asp-controller="Friendships" method="post">
+            <input type="hidden" name="user1" value="@SignInManager.UserManager.GetUserName(User)" />
+            <input type="hidden" name="user2" value="@item.UserName" />
+            <button type="submit">Reject</button>
+        </form>
+    </div>
     }
 </div>

@@ -3,6 +3,7 @@
 
 @inject SignInManager<ApplicationUser> SignInManager
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,11 +25,13 @@
         @if (SignInManager.IsSignedIn(User))
         {
             <a href="/users/@SignInManager.UserManager.GetUserName(User)">Your Profile</a>
+            @await Component.InvokeAsync("Notifications", @SignInManager.UserManager.GetUserName(User));
         }
         @if (!SignInManager.IsSignedIn(User))
         {
             <a href="@Url.Action("Login", "Account")">Login</a>
             <a href="@Url.Action("Register", "Account")">Register</a>
+
         }
     </div>
 
