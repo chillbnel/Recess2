@@ -79,7 +79,7 @@ namespace LetsPlay.Controllers
 
             await _posts.CreateASignUp(playerSignUpForEvent);
 
-            return RedirectToAction(nameof(Index));
+            return Redirect($"/post/details/{postID}");
         }
 
         [HttpPost]
@@ -87,7 +87,7 @@ namespace LetsPlay.Controllers
         {
             await _posts.DeleteASignUp(userName, postID);
 
-            return RedirectToAction(nameof(Index));
+            return Redirect($"/post/details/{postID}");
         }
     }
 }

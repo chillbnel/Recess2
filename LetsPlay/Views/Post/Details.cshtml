@@ -9,6 +9,7 @@
 @{
     ViewData["Title"] = "Details";
     Layout = "_Layout";
+    bool isSignedUp = false;
 }
 
 <h2>Details</h2>
@@ -26,16 +27,30 @@
     @foreach (var user in Model.SignUps)
     {
         <a href="/users/@user.Username">@user.Username</a>
+        if (user.Username == SignInManager.UserManager.GetUserName(User))
+        {
+            isSignedUp = true;
+        }
     }
 
     @if (SignInManager.IsSignedIn(User))
     {
-
-        <form asp-controller="Post" asp-action="SignUpForEvent">
-            <input type="hidden" name="userName" value="@SignInManager.UserManager.GetUserName(User)" />
-            <input type="hidden" name="postID" value="@Model.Post.ID" />
-            <button type="submit">Join Event</button>
-        </form>
+        if (!isSignedUp)
+        {
+            <form asp-controller="Post" asp-action="SignUpForEvent">
+                <input type="hidden" name="userName" value="@SignInManager.UserManager.GetUserName(User)" />
+                <input type="hidden" name="postID" value="@Model.Post.ID" />
+                <button type="submit">Join Event</button>
+            </form>
+        }
+        else
+        {
+            <form asp-controller="Post" asp-action="RemoveSignUpForEvent">
+                <input type="hidden" name="userName" value="@SignInManager.UserManager.GetUserName(User)" />
+                <input type="hidden" name="postID" value="@Model.Post.ID" />
+                <button type="submit">Remove Me</button>
+            </form>
+        }
     }
     else
     {
