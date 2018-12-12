@@ -56,6 +56,7 @@ namespace LetsPlay
             services.AddScoped<IPost, PostService>();
             services.AddScoped<IMessages, MessagesService>();
             services.AddScoped<IFriendships, FriendshipsService>();
+            services.AddScoped<IChat, ChatService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

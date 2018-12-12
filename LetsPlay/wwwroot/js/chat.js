@@ -18,14 +18,14 @@ connection.start().catch(function (err) {
 });
 
 // Logic message sending button
-document.getElementById('sendButton').addEventListener('click', function (event) {
+document.getElementById('messageSender').addEventListener('submit', function (event) {
+    event.preventDefault();
     console.log(event);
     var user = document.getElementById('userInput').value;
     var message = document.getElementById('messageInput').value;
     connection.invoke('SendMessage', user, message).catch(function (err) {
         return console.error(err.toString());
     });
-    event.preventDefault();
 });
 
 //Pressing enter also allows message sending
