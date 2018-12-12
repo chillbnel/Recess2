@@ -1,9 +1,0 @@
-﻿
-@model IEnumerable<LetsPlay.Models.GeneralChat>
-
-<ul id="messagesList">
-    @foreach (var item in Model)
-    {
-        <li>@Html.DisplayFor(modelItem => item.User): @Html.DisplayFor(modelItem => item.Message)</li>
-    }
-</ul>

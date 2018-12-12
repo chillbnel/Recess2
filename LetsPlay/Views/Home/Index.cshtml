@@ -1,5 +1,8 @@
 ﻿@using LetsPlay.Models
+@using Microsoft.AspNetCore.Identity;
 @model LetsPlay.Models.GeneralChat
+@inject SignInManager<ApplicationUser> SignInManager
+
 @{
     ViewData["Title"] = "Home";
     Layout = "_Layout";
@@ -15,6 +18,7 @@
     }
 </ul>
 
+
 <form method="post" id="sendButton">
     <label asp-for="User" class="control-label"></label>
     <input asp-for="User" class="form-control" id="userInput" />
@@ -25,27 +29,27 @@
 </form>
 
 @*<div class="container">
-        <div class="row">&nbsp;</div>
-        <div class="row">
-            <div class="col-6">&nbsp;</div>
-            <div class="col-6">
-                User..........<input type="text" id="userInput" />
-                <br />
-                Message...<input type="text" id="messageInput" />
-                <input type="button" id="sendButton" value="Send Message" />
-            </div>
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <div class="col-6">&nbsp;</div>
+        <div class="col-6">
+            User..........<input type="text" id="userInput" />
+            <br />
+            Message...<input type="text" id="messageInput" />
+            <input type="button" id="sendButton" value="Send Message" />
         </div>
-        <div class="row">
-            <div class="col-12">
-                <hr />
-            </div>
-        </div>*@
-        @*<div class="row">
-            <div class="col-6">&nbsp;</div>
-            <div class="col-6">
-                <ul id="messagesList"></ul>
-            </div>*@
-        @*</div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <hr />
+        </div>
+    </div>*@
+@*<div class="row">
+    <div class="col-6">&nbsp;</div>
+    <div class="col-6">
+        <ul id="messagesList"></ul>
+    </div>*@
+@*</div>
     </div>*@
 <script src="~/lib/signalr/dist/browser/signalr.js"></script>
 <script src="~/js/chat.js"></script>
