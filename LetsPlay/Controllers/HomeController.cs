@@ -3,14 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using LetsPlay.Models.Interfaces;
 
 namespace LetsPlay.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private IPost _context;
+
+        public HomeController(IPost context)
         {
-            return View();
+            _context = context;
+        }
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.GetLastTenPosts());
         }
     }
 }

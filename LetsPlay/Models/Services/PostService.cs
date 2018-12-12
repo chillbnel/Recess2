@@ -50,6 +50,15 @@ namespace LetsPlay.Models.Services
         }
 
         /// <summary>
+        ///  Get last 10 posts from the Database
+        /// </summary>
+        /// <returns>A list of posts</returns>
+        public async Task<IEnumerable<Post>> GetLastTenPosts()
+        {
+            return await _context.Posts.Take(10).ToListAsync();
+        }
+
+        /// <summary>
         ///  Get a single post from the database
         /// </summary>
         /// <param name="id">the post id to be displayed</param>
