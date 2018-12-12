@@ -31,9 +31,8 @@ document.getElementById('sendButton').addEventListener('click', function (event)
 //Pressing enter also allows message sending
 document.getElementById('messageInput').addEventListener('keyup', function (e) {
     e.preventDefault();
-    if (event.keyCode === 13) {
+    if (e.keyCode === 13) {
         document.getElementById('sendButton').click();
-        console.log(this);
         this.value = '';
     }
 });
