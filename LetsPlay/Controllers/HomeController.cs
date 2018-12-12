@@ -11,16 +11,18 @@ namespace LetsPlay.Controllers
     public class HomeController : Controller
     {
         private readonly IChat _chat;
+        private readonly IPost _post;
 
-        public HomeController(IChat context)
+        public HomeController(IChat chat, IPost post)
         {
-            _chat = context;
+            _chat = chat;
+            _post = post;
         }
 
         public async Task<IActionResult> Index()
         {
             ViewBag.GeneralChat = await _chat.GetMessages();
-            return View();
+            return View(_post.GetLastTenPosts());
         }
     }
 }
