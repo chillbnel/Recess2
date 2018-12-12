@@ -1,5 +1,6 @@
 ﻿using LetsPlay.Data;
 using LetsPlay.Models.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,14 @@ namespace LetsPlay.Models.Services
     public class ChatService : IChat
     {
         private LetsPlayDbContext _context;
-        public Task<IEnumerable<GeneralChat>> GetMessages()
+
+        public ChatService(LetsPlayDbContext context)
         {
-            
+            _context = context;
+        }
+        public async Task<IEnumerable<GeneralChat>> GetMessages()
+        {
+            return await _context.GeneralChats.ToListAsync();
         }
     }
 }
