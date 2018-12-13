@@ -12,5 +12,6 @@ namespace LetsPlay.Models.ViewModels
         public IEnumerable<ApplicationUser> Friends { get; set; }
         public IEnumerable<ApplicationUser> SentRequests { get; set; }
         public IEnumerable<ApplicationUser> ReceivedRequests { get; set; }
+        public List<Post> UserSignedupEvents { get; set; }
     }
 }

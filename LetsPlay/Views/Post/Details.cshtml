@@ -23,7 +23,9 @@
     <p>@Html.DisplayFor(model => Model.Post.EventDate)</p>
     <p>@Html.DisplayFor(model => Model.Post.Type)</p>
 
-    <p>Player's Signedup:</p>
+    <p>Min Players Needed: @Model.Post.MaxPlayers</p>
+    <p>Max Player Signups Allowed: @Model.Post.MaxPlayers</p>
+    <p>@Model.SignUps.Count() Players Signedup:</p>
     @foreach (var user in Model.SignUps)
     {
         <a href="/users/@user.Username">@user.Username</a>
@@ -32,16 +34,24 @@
             isSignedUp = true;
         }
     }
+    <p>@(Model.Post.MaxPlayers - Model.SignUps.Count()) spots left</p>
 
     @if (SignInManager.IsSignedIn(User))
     {
         if (!isSignedUp)
         {
-            <form asp-controller="Post" asp-action="SignUpForEvent">
-                <input type="hidden" name="Username" value="@SignInManager.UserManager.GetUserName(User)" />
-                <input type="hidden" name="PostID" value="@Model.Post.ID" />
-                <button type="submit">Join Event</button>
-            </form>
+            if(Model.SignUps.Count() >= Model.Post.MaxPlayers)
+            {
+                <p>This event is full!</p>
+            }
+            else
+            {
+                <form asp-controller="Post" asp-action="SignUpForEvent">
+                    <input type="hidden" name="Username" value="@SignInManager.UserManager.GetUserName(User)" />
+                    <input type="hidden" name="PostID" value="@Model.Post.ID" />
+                    <button type="submit">Join Event</button>
+                </form>
+            }
         }
         else
         {
