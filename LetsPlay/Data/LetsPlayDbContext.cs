@@ -20,7 +20,7 @@ namespace LetsPlay.Data
                 );
 
             modelBuilder.Entity<PlayerSignups>().HasKey(
-                ce => new { ce.Username, ce.PostID }
+                ce => new { ce.PostID, ce.Username }
                 );
         }
 

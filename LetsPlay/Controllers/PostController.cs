@@ -69,17 +69,11 @@ namespace LetsPlay.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignUpForEvent(string userName, int postID)
+        public async Task<IActionResult> SignUpForEvent(PlayerSignups psu)
         {
-            PlayerSignups playerSignUpForEvent = new PlayerSignups()
-            {
-                Username = userName,
-                PostID = postID
-            };
+            await _posts.CreateASignUp(psu);
 
-            await _posts.CreateASignUp(playerSignUpForEvent);
-
-            return Redirect($"/post/details/{postID}");
+            return Redirect($"/post/details/{psu.PostID}");
         }
 
         [HttpPost]
