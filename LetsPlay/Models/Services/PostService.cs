@@ -99,5 +99,12 @@ namespace LetsPlay.Models.Services
 
             return allSignUps;
         }
+
+        public IEnumerable<Comments> GetAllCommentsForPost(int postID)
+        {
+            var allComments = _context.Comments.Where(c => c.PostID == postID);
+
+            return allComments;
+        }
     }
 }

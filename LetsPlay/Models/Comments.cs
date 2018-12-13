@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,12 +9,12 @@ namespace LetsPlay.Models
 {
     public class Comments
     {
+        [Key]
         public int ID { get; set; } // primary key
         public string Username { get; set; } // ID DB
+        [ForeignKey("Posts")]
         public int PostID { get; set; } //foreign key
-        public DateTime Date { get; set; }
         public string Message { get; set; }
 
-        public Post Post { get; set; }
     }
 }

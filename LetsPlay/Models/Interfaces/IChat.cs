@@ -10,5 +10,7 @@ namespace LetsPlay.Models.Interfaces
         Task<IEnumerable<GeneralChat>> GetMessages();
 
         Task CreateMessage(GeneralChat chat);
+
+        Task CreateComment(Comments comment);
     }
 }
