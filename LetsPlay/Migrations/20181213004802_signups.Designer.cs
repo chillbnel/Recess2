@@ -4,14 +4,16 @@ using LetsPlay.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LetsPlay.Migrations
 {
     [DbContext(typeof(LetsPlayDbContext))]
-    partial class LetsPlayDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181213004802_signups")]
+    partial class signups
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
