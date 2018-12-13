@@ -15,11 +15,13 @@ namespace LetsPlay.Controllers
         private UserManager<ApplicationUser> _userManager { get; set; }
 
         private readonly IFriendships _friendships;
+        private readonly IPost _posts;
 
-        public UserController(UserManager<ApplicationUser> userManager, IFriendships friendship)
+        public UserController(UserManager<ApplicationUser> userManager, IFriendships friendship, IPost posts)
         {
             _userManager = userManager;
             _friendships = friendship;
+            _posts = posts;
         }
 
         [HttpGet("/users/{username}")]
@@ -35,6 +37,7 @@ namespace LetsPlay.Controllers
             var userFriends = await _friendships.GetFriendshipsForUser(currentUser);
             var userSentRequests = await _friendships.GetSentFriendRequestsForUser(currentUser);
             var userReceivedRequests = await _friendships.GetReceivedFriendRequestsForUser(currentUser);
+            var userEventSignups = await _posts.GetAllSignedupEventsForPlayer(username);
 
             FriendshipsViewModel fvm = new FriendshipsViewModel()
             {
@@ -42,7 +45,8 @@ namespace LetsPlay.Controllers
                 Friends = userFriends,
                 ReceivedRequests = userReceivedRequests,
                 SentRequests = userSentRequests,
-                ViewUserFriends = viewUserFriends
+                ViewUserFriends = viewUserFriends,
+                UserSignedupEvents = userEventSignups
             };
 
             return View(fvm);
