@@ -30,7 +30,8 @@ namespace LetsPlay.Hubs
             await Clients.All.SendAsync("ReceiveMessage", user, message);
 
             //Stores comments and user with PostID to db
-            await _chat.CreateComment(new Comments() { Username = user, Message = message, PostID = postID });
+            var newComment = new Comments() { Username = user, PostNumber = postID, Message = message };
+            await _chat.CreateComment(newComment);
 
         }
         ////

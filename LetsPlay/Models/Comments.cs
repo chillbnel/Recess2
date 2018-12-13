@@ -12,8 +12,8 @@ namespace LetsPlay.Models
         [Key]
         public int ID { get; set; } // primary key
         public string Username { get; set; } // ID DB
-        [ForeignKey("Posts")]
-        public int PostID { get; set; } //foreign key
+
+        public int PostNumber { get; set; } //foreign key
         public string Message { get; set; }
 
     }

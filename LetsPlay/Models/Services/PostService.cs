@@ -102,7 +102,7 @@ namespace LetsPlay.Models.Services
 
         public IEnumerable<Comments> GetAllCommentsForPost(int postID)
         {
-            var allComments = _context.Comments.Where(c => c.PostID == postID);
+            var allComments = _context.Comments.Where(c => c.PostNumber == postID);
 
             return allComments;
         }
