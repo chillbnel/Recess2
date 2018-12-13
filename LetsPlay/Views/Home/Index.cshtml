@@ -22,7 +22,7 @@
     }
 </div>
 
-<ul id="messagesList">
+<ul id="messagesList" style="height: 350px; overflow: scroll;">
     @foreach (var item in ((List<GeneralChat>)ViewBag.GeneralChat))
     {
         <li>@Html.DisplayFor(modelItem => item.User): @Html.DisplayFor(modelItem => item.Message)</li>
@@ -32,11 +32,10 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <form method="post" id="sendButton">
-        @*<label asp-for="User" class="control-label"></label>*@
         <input asp-for="User" class="form-control" id="userInput" type="hidden" value="@SignInManager.UserManager.GetUserName(User)" />
 
         <label asp-for="Message" class="control-label"></label>
-        <input asp-for="Message" class="form-control" id="messageInput" />
+        <input asp-for="Message" class="form-control" id="messageInput" autocomplete="off"/>
         <input type="submit" value="Send Message" />
     </form>
 }

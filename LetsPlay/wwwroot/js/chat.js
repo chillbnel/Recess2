@@ -2,7 +2,8 @@
 
 //Set up connection
 var connection = new signalR.HubConnectionBuilder().withUrl('/chatHub').build();
-
+var list = document.getElementById('messagesList');
+list.scrollTop = list.scrollHeight;
 // Parses message and appends to ul
 connection.on("ReceiveMessage", function (user, message) {
     var msg = message.replace(/&/g, "&amp;").replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -10,6 +11,7 @@ connection.on("ReceiveMessage", function (user, message) {
     var li = document.createElement('li');
     li.textContent = encodedMsg;
     document.getElementById('messagesList').appendChild(li);
+    list.scrollTop = list.scrollHeight;
 });
 
 // Error handling for connection
