@@ -32,7 +32,6 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <form method="post" id="sendButton">
-        @*<label asp-for="User" class="control-label"></label>*@
         <input asp-for="User" class="form-control" id="userInput" type="hidden" value="@SignInManager.UserManager.GetUserName(User)" />
 
         <label asp-for="Message" class="control-label"></label>

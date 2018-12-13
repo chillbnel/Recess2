@@ -19,7 +19,6 @@ namespace LetsPlay.Hubs
         }
         public async Task SendMessage(string user, string message)
         {
-
             await Clients.All.SendAsync("ReceiveMessage", user, message);
             await _chat.CreateMessage(new GeneralChat() { User = user, Message = message });
         }
