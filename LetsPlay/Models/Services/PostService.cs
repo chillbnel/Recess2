@@ -106,5 +106,21 @@ namespace LetsPlay.Models.Services
 
             return allComments;
         }
+
+        public async Task<List<Post>> GetAllSignedupEventsForPlayer(string username)
+        {
+            var signups = _context.Signups.Where(x => x.Username == username);
+
+            List<Post> events = new List<Post>();
+
+            foreach (var signup in signups)
+            {
+                var eventID = signup.PostID;
+                Post temp = await GetPost(eventID);
+                events.Add(temp);
+            }
+
+            return events;
+        }
     }
 }
