@@ -26,5 +26,7 @@ namespace LetsPlay.Models.Interfaces
         IEnumerable<PlayerSignups> GetAllPlayersSignedUp(int postID);
 
         IEnumerable<Comments> GetAllCommentsForPost(int postID);
+
+        Task<List<Post>> GetAllSignedupEventsForPlayer(string username);
     }
 }
