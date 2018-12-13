@@ -38,8 +38,8 @@
         if (!isSignedUp)
         {
             <form asp-controller="Post" asp-action="SignUpForEvent">
-                <input type="hidden" name="userName" value="@SignInManager.UserManager.GetUserName(User)" />
-                <input type="hidden" name="postID" value="@Model.Post.ID" />
+                <input type="hidden" name="Username" value="@SignInManager.UserManager.GetUserName(User)" />
+                <input type="hidden" name="PostID" value="@Model.Post.ID" />
                 <button type="submit">Join Event</button>
             </form>
         }
