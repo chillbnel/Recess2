@@ -8,6 +8,7 @@ namespace LetsPlay.Models.ViewModels
     public class SignupViewModel
     {
         public Post Post { get; set; }
+        public IEnumerable<Comments> Comments { get; set; }
         public IEnumerable <PlayerSignups> SignUps{ get; set; }
     }
 }

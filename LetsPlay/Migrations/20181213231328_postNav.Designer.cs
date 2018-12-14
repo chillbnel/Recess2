@@ -4,14 +4,16 @@ using LetsPlay.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LetsPlay.Migrations
 {
     [DbContext(typeof(LetsPlayDbContext))]
-    partial class LetsPlayDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181213231328_postNav")]
+    partial class postNav
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,11 +29,14 @@ namespace LetsPlay.Migrations
 
                     b.Property<string>("Message");
 
-                    b.Property<int>("PostNumber");
+                    b.Property<int>("PostID");
 
                     b.Property<string>("Username");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("PostID")
+                        .IsUnique();
 
                     b.ToTable("Comments");
                 });
@@ -106,8 +111,6 @@ namespace LetsPlay.Migrations
 
                     b.Property<int>("Category");
 
-                    b.Property<int?>("CommentsID");
-
                     b.Property<string>("Description");
 
                     b.Property<DateTime>("EventDate");
@@ -132,9 +135,15 @@ namespace LetsPlay.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("CommentsID");
-
                     b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("LetsPlay.Models.Comments", b =>
+                {
+                    b.HasOne("LetsPlay.Models.Post", "Post")
+                        .WithOne("Comments")
+                        .HasForeignKey("LetsPlay.Models.Comments", "PostID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("LetsPlay.Models.PlayerSignups", b =>
@@ -143,13 +152,6 @@ namespace LetsPlay.Migrations
                         .WithMany("Signups")
                         .HasForeignKey("PostID")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("LetsPlay.Models.Post", b =>
-                {
-                    b.HasOne("LetsPlay.Models.Comments", "Comments")
-                        .WithMany()
-                        .HasForeignKey("CommentsID");
                 });
 #pragma warning restore 612, 618
         }

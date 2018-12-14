@@ -4,14 +4,16 @@ using LetsPlay.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LetsPlay.Migrations
 {
     [DbContext(typeof(LetsPlayDbContext))]
-    partial class LetsPlayDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181213231627_plz")]
+    partial class plz
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

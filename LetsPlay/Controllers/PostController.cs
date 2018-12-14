@@ -37,11 +37,13 @@ namespace LetsPlay.Controllers
             Post post = await _posts.GetPost(id);
             if (post == null) return NotFound();
             var allSignUps = _posts.GetAllPlayersSignedUp(id.Value);
+            var allComments = _posts.GetAllCommentsForPost(id.Value);
 
             SignupViewModel svm = new SignupViewModel()
             {
                 Post = post,
-                SignUps = allSignUps
+                SignUps = allSignUps,
+                Comments = allComments
             };
 
             return View(svm);

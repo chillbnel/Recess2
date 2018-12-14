@@ -20,7 +20,25 @@ namespace LetsPlay.Hubs
         public async Task SendMessage(string user, string message)
         {
             await Clients.All.SendAsync("ReceiveMessage", user, message);
+            
+            //Stores message and user to db
             await _chat.CreateMessage(new GeneralChat() { User = user, Message = message });
         }
+
+        public async Task SendComment(int postID, string user, string message)
+        {
+            await Clients.All.SendAsync("ReceiveMessage", user, message);
+
+            //Stores comments and user with PostID to db
+            var newComment = new Comments() { Username = user, PostNumber = postID, Message = message };
+            await _chat.CreateComment(newComment);
+
+        }
+        ////
+        //public async Task JoinGroup(string groupName)
+        //{
+        //    await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
+        //    await Clients.Group(groupName).SendAsync(Context.ConnectionId + " added to group");
+        //}
     }
 }

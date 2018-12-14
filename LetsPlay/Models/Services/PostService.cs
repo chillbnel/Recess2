@@ -88,7 +88,7 @@ namespace LetsPlay.Models.Services
 
         public async Task DeleteASignUp(string userName, int postID)
         {
-            var eventSignedUp = await _context.Signups.FindAsync(postID, userName);
+            var eventSignedUp = await _context.Signups.FindAsync(userName, postID);
             _context.Signups.Remove(eventSignedUp);
             await _context.SaveChangesAsync();
         }
@@ -98,6 +98,13 @@ namespace LetsPlay.Models.Services
             var allSignUps = _context.Signups.Where(x => x.PostID == postID);
 
             return allSignUps;
+        }
+
+        public IEnumerable<Comments> GetAllCommentsForPost(int postID)
+        {
+            var allComments = _context.Comments.Where(c => c.PostNumber == postID);
+
+            return allComments;
         }
 
         public async Task<List<Post>> GetAllSignedupEventsForPlayer(string username)

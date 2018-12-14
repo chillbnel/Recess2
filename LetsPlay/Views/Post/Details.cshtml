@@ -1,5 +1,4 @@
-﻿
-@using Microsoft.AspNetCore.Identity
+﻿@using Microsoft.AspNetCore.Identity
 @using LetsPlay.Models
 @using LetsPlay.Models.ViewModels
 @inject SignInManager<ApplicationUser> SignInManager
@@ -32,15 +31,15 @@
                 <p class="col-md-6"><span class="font-weight-bold">Type: </span>@Html.DisplayFor(model => Model.Post.Type)</p>
                 <p class="col-md-6"><span class="font-weight-bold">Category: </span>@Html.DisplayFor(model => Model.Post.Category)</p>
             </div>
-            <p><span class="font-weight-bold">Description: </span>@Html.DisplayFor(model => Model.Post.Description)</p>            
+            <p><span class="font-weight-bold">Description: </span>@Html.DisplayFor(model => Model.Post.Description)</p>
             <div class="row">
                 <p class="col-md-6"><span class="font-weight-bold">Minimum Players Needed: </span>@Model.Post.MinPlayers</p>
                 <p class="col-md-6"><span class="font-weight-bold">Maximum Player Signups Allowed: </span>@Model.Post.MaxPlayers</p>
             </div>
-            
+
         </div>
         <div class="col-md-4 border-left">
-            
+
             <p>Players Signed Up: @Model.SignUps.Count()/@Model.Post.MaxPlayers</p>
             @foreach (var user in Model.SignUps)
             {
@@ -83,10 +82,25 @@
             }
         </div>
     </div>
-    <div class="row border mt-4">Tons o' text</div>
-    
-   
-
-    
+    <div class="row border mt-4">
+        <ul id="messagesList" style="height: 350px; overflow: scroll;">
+            @foreach (var item in Model.Comments)
+            {
+                <li>@Html.DisplayFor(modelItem => item.Username): @Html.DisplayFor(modelItem => item.Message)</li>
+            }
+        </ul>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <form method="post" id="sendComment">
+                <input class="form-control" id="userInput" type="hidden" value="@SignInManager.UserManager.GetUserName(User)" />
+                <input type="hidden" value="@Model.Post.ID" id="postID" />
+                <label class="control-label"></label>
+                <input class="form-control" id="messageInput" autocomplete="off" />
+                <input type="submit" value="Send Message" />
+            </form>
+        }
+    </div>
 </div>
 
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/comment.js"></script>

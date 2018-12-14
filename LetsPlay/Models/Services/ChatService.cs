@@ -17,6 +17,12 @@ namespace LetsPlay.Models.Services
             _context = context;
         }
 
+        public async Task CreateComment(Comments comment)
+        {
+            _context.Comments.Add(comment);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task CreateMessage(GeneralChat chat)
         {
             _context.GeneralChats.Add(chat);

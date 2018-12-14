@@ -20,12 +20,14 @@ connection.start().catch(function (err) {
     return console.error(err.toString());
 });
 
-// Logic message sending button FOR GENERAL CHAT
-document.getElementById('sendButton').addEventListener('submit', function (event) {
+
+// Logic message sending button FOR COMMENTS
+document.getElementById('sendComment').addEventListener('submit', function (event) {
     console.log(event);
     var user = document.getElementById('userInput').value;
     var message = document.getElementById('messageInput').value;
-    connection.invoke('SendMessage', user, message).catch(function (err) {
+    var postID = document.getElementById('postID').value;
+    connection.invoke('SendComment', postID, user, message).catch(function (err) {
         return console.error(err.toString());
     });
     event.preventDefault();
@@ -35,7 +37,7 @@ document.getElementById('sendButton').addEventListener('submit', function (event
 document.getElementById('messageInput').addEventListener('keyup', function (e) {
     e.preventDefault();
     if (e.keyCode === 13) {
-        document.getElementById('sendButton').click();
+        document.getElementById('sendComment').click();
         this.value = '';
     }
 });
