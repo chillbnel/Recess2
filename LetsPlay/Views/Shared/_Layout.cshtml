@@ -20,7 +20,12 @@
         <div class="row">
 
             <div class="col-md-2 sidenav">
-                @*<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>*@
+                <img class="friendsButton bg-white rounded" src="https://cdn4.iconfinder.com/data/icons/ios7-active-2/512/Contacts.png" />
+
+                <div class="friendsList">
+
+                </div>
+
                 <a href="@Url.Action("Index", "Home")">Home</a>
                 <a href="@Url.Action("Index", "Post")">Postings</a>
                 <a href="@Url.Action("Create", "Post")">Add a Post</a>
@@ -35,10 +40,9 @@
                 }
             </div>
 
-            <div class="col-md-10">
+
+            <div class="col-md-10 allContent">
                 @RenderBody()
-
-
 
             </div>
         </div>
