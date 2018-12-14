@@ -25,7 +25,7 @@
                 <a href="@Url.Action("Index", "Post")">Postings</a>
                 @if (SignInManager.IsSignedIn(User))
                 {
-                    <a href="@Url.Action("Create", "Post")">Add a Post</a>
+                    <a class="mb-5" href="@Url.Action("Create", "Post")">Add a Post</a>
                     @await Component.InvokeAsync("Notifications", @SignInManager.UserManager.GetUserName(User));
                     <a href="#">
                         <img class="friendsButton bg-white rounded toggleFriends" src="https://cdn4.iconfinder.com/data/icons/ios7-active-2/512/Contacts.png" />

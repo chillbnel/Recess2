@@ -62,7 +62,6 @@
 }
 
 .alignRight{
-    /*text-align: right;*/
     float:right;
 }
 
@@ -102,8 +101,8 @@
     position: fixed;
     top: 0px;
     left: -50px;
-    z-index: -1;
-    height: 400px;
+    z-index: 1;
+    height: 300px;
     min-width: 105%;
     text-align: center;
     box-shadow: 1px 1px 3px 1px rgba(13, 13, 13, 0.16);
@@ -116,8 +115,7 @@
 
 .logo {
     position: absolute;
-    top: 150px;
-    /*right: 40px;*/
+    top: 35px;
     z-index: 0;
     width: 300px;
 }
@@ -139,16 +137,17 @@
 }
 
 .homeContent {
-    position: fixed;
-    /*right: 0;*/
-    overflow: scroll;
-    top: 400px;
+    position: absolute;
+    top: 300px;
     height: 70%;
+    width: auto;
+    z-index: 0;
 }
 
 .contentInnerWrapper {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    padding-bottom: 100px;
 }
 
 .friends-box {
@@ -247,5 +246,48 @@
     .sidenav {
         height: 40%;
         text-align: center;
+        position: relative;
+        max-width: 100%;
+        padding-top: 5px;
+    }
+
+    .allContent {
+        margin: 0 auto;
+    }
+
+    .vidContainer {
+        position: absolute;
+    }
+
+    .logo {
+        left:30%;
+    }
+
+    .profile-nav {
+        bottom: 0;
+        width: 100vw;
+    }
+
+    .logOutButton {
+        bottom: 50px;
+    }
+
+    .requests-box {
+        left: auto;
+        right: 10px;
+        bottom: auto;
+        top: 280px;
+    }
+
+    .notNum {
+        right: 30px;
+    }
+
+    .homeContent {
+        padding-top: 50px;
+    }
+
+    .allContent {
+        padding-top: 50px;
     }
 }
