@@ -21,6 +21,7 @@
 
             <div class="col-md-2 sidenav">
                 <a href="@Url.Action("Index", "Home")">Home</a>
+                <a href="@Url.Action("ChatRoom", "Home")">Chat Room</a>
                 <a href="@Url.Action("Index", "Post")">Postings</a>
                 @if (SignInManager.IsSignedIn(User))
                 {

@@ -77,6 +77,10 @@ namespace LetsPlay
                 routes.MapHub<ChatHub>("/chatHub");
             });
 
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ChatHub>("/commentHub");
+            });
             //Default route
             app.UseMvc(routes =>
             {
@@ -84,12 +88,6 @@ namespace LetsPlay
                 name: "default",
                 template: "{controller=Home}/{action=Index}/{id?}");
             });
-
-
-            //app.Run(async (context) =>
-            //{
-            //    await context.Response.WriteAsync("Hello World!");
-            //});
         }
     }
 }

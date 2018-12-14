@@ -1,0 +1,58 @@
+﻿@using LetsPlay.Models
+@using Microsoft.AspNetCore.Identity;
+@model LetsPlay.Models.GeneralChat
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    ViewData["Title"] = "ChatRoom";
+    Layout = "_Layout";
+}
+
+
+<div class="chatContainer">
+    <div class="messageBlockContainer">
+        <h1>Chat Away!</h1>
+        <div id="messagesList">
+            @foreach (var item in ((List<GeneralChat>)ViewBag.GeneralChat))
+            {
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    if (item.User == @SignInManager.UserManager.GetUserName(User).ToString())
+                    {
+                        <div class="messageBlock clearFix"><p class="myMessage">@Html.DisplayFor(modelItem => item.Message)</p></div>
+                    }
+                    else
+                    {
+                        <div class="messageBlock clearFix"><p class="otherMessage"><span class="bold">@Html.DisplayFor(modelItem => item.User)</span>: @Html.DisplayFor(modelItem => item.Message)</p></div>
+                    }
+                }
+                else
+                {
+                    <div class="messageBlock clearFix"><p class="otherMessage"><span class="bold">@Html.DisplayFor(modelItem => item.User)</span>: @Html.DisplayFor(modelItem => item.Message)</p></div>
+                }
+            }
+        </div>
+
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <input value="@SignInManager.UserManager.GetUserName(User)" type="hidden" id="currentUser" />
+            <form method="post" id="sendButton">
+                <input asp-for="User" class="form-control" id="userInput" type="hidden" value="@SignInManager.UserManager.GetUserName(User)" />
+
+                <label asp-for="Message" class="control-label mt-5"></label>
+                <input asp-for="Message" class="form-control" id="messageInput" autocomplete="off" required />
+                <input class="btn mt-2" type="submit" value="Send Message" />
+            </form>
+        }
+        else
+        {
+            <p>You are not logged in.</p>
+            <a href="/account/login">Log In</a>
+            <a href="/account/register">Register</a>
+        }
+    </div>
+</div>
+
+
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/chat.js"></script>

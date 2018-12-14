@@ -1,4 +1,72 @@
-﻿.profile-nav {
+﻿#messagesList {
+    height: 350px;
+    overflow-y: scroll;
+    border: 3px solid #eeeeee;
+    border-radius: 10px;
+    padding: 5px;
+    width: 100%;
+}
+
+
+.messageBlockContainer {
+    width: 80%;
+    margin: 0 auto;
+}
+
+#messageInput {
+    border: 3px solid #eeeeee;
+    border-radius: 10px;
+}
+
+.bold {
+    font-weight: bold;
+}
+.contain {
+    width: 100%;
+}
+
+.messageBlock {
+    display: block;
+    width: 100%;
+}
+
+.clearFix:after {
+    content: '';
+    clear: both;
+    display: table;
+}
+
+.otherMessage {
+    color: black;
+    background-color: #eeeeee;
+    border-radius: 8px;
+    max-width: 50%;
+    display: inline-block;
+    padding: 10px 10px 12px 10px;
+    float: left;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.myMessage {
+    color: white;
+    background-color: #2e4c7c;
+    border-radius: 8px;
+    max-width: 50%;
+    padding: 10px 10px 12px 10px;
+    float: right;
+    clear: both;
+    overflow-wrap: break-word;
+    text-align: left;
+    line-height: 1.3;
+}
+
+.alignRight{
+    /*text-align: right;*/
+    float:right;
+}
+
+.profile-nav {
     position: absolute;
     bottom: 60px;
     width: 100%;
@@ -49,8 +117,25 @@
 .logo {
     position: absolute;
     top: 150px;
+    /*right: 40px;*/
     z-index: 0;
     width: 300px;
+}
+
+.postTitle {
+    margin-left: 10px;
+}
+.card {
+    margin: 10px;
+    min-height: 300px;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+}
+.cardHost {
+    margin-top: auto;
 }
 
 .homeContent {
@@ -59,6 +144,11 @@
     overflow: scroll;
     top: 400px;
     height: 70%;
+}
+
+.contentInnerWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 .friends-box {

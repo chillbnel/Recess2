@@ -55,7 +55,7 @@ namespace LetsPlay.Models.Services
         /// <returns>A list of posts</returns>
         public async Task<IEnumerable<Post>> GetLastTenPosts()
         {
-            return await _context.Posts.Take(10).ToListAsync();
+            return await _context.Posts.OrderByDescending(p => p.ID).Take(10).ToListAsync();
         }
 
         /// <summary>
@@ -86,9 +86,10 @@ namespace LetsPlay.Models.Services
             await _context.SaveChangesAsync();
         }
 
+
         public async Task DeleteASignUp(string userName, int postID)
         {
-            var eventSignedUp = await _context.Signups.FindAsync(userName, postID);
+            var eventSignedUp = await _context.Signups.FindAsync(postID, userName);
             _context.Signups.Remove(eventSignedUp);
             await _context.SaveChangesAsync();
         }
