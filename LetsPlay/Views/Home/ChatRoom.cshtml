@@ -15,9 +15,16 @@
         <div id="messagesList">
             @foreach (var item in ((List<GeneralChat>)ViewBag.GeneralChat))
             {
-                if (item.User == @SignInManager.UserManager.GetUserName(User).ToString())
+                @if (SignInManager.IsSignedIn(User))
                 {
-                    <div class="messageBlock clearFix"><p class="myMessage">@Html.DisplayFor(modelItem => item.Message)</p></div>
+                    if (item.User == @SignInManager.UserManager.GetUserName(User).ToString())
+                    {
+                        <div class="messageBlock clearFix"><p class="myMessage">@Html.DisplayFor(modelItem => item.Message)</p></div>
+                    }
+                    else
+                    {
+                        <div class="messageBlock clearFix"><p class="otherMessage"><span class="bold">@Html.DisplayFor(modelItem => item.User)</span>: @Html.DisplayFor(modelItem => item.Message)</p></div>
+                    }
                 }
                 else
                 {
