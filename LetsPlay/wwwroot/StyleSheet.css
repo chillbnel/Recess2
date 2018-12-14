@@ -45,7 +45,7 @@
 .topBanner {
     position: absolute;
     top: -100px;
-    left: -50px;
+    left: 0px;
     z-index: -1;
     height: 400px;
     background-size: cover;

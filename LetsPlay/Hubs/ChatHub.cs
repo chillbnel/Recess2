@@ -17,6 +17,8 @@ namespace LetsPlay.Hubs
         {
             _chat = context;
         }
+
+        // Send message to chatRoom
         public async Task SendMessage(string user, string message)
         {
             await Clients.All.SendAsync("ReceiveMessage", user, message);
@@ -25,6 +27,7 @@ namespace LetsPlay.Hubs
             await _chat.CreateMessage(new GeneralChat() { User = user, Message = message });
         }
 
+        // Send message to postRoom
         public async Task SendComment(int postID, string user, string message)
         {
             await Clients.All.SendAsync("ReceiveMessage", user, message);

@@ -15,6 +15,7 @@ connection.on("ReceiveMessage", function (user, message) {
 
     if (currUser.value === user) {
         li.classList.add('myMessage');
+        li.textContent = msg;
     }
     document.getElementById('messagesList').appendChild(li);
     list.scrollTop = list.scrollHeight;
