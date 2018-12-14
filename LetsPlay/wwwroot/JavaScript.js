@@ -10,5 +10,9 @@ function closeNav() {
 }
 
 $(".toggleNots").on("click", function () {
-    $(".requests-box").toggle();
+    $(".requests-box").slideToggle('fast');
+});
+
+$(".toggleFriends").on("click", function () {
+    $(".friends-box").slideToggle('fast');
 });
