@@ -88,7 +88,7 @@ namespace LetsPlay.Models.Services
 
         public async Task DeleteASignUp(string userName, int postID)
         {
-            var eventSignedUp = await _context.Signups.FindAsync(userName, postID);
+            var eventSignedUp = await _context.Signups.FindAsync(postID, userName);
             _context.Signups.Remove(eventSignedUp);
             await _context.SaveChangesAsync();
         }
