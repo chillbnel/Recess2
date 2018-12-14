@@ -2,7 +2,7 @@
     position: absolute;
     bottom: 40px;
     width: 100%;
-    background-color: black;
+    background-color: #1c273a;
 }
 
 .requests-box {
@@ -12,6 +12,32 @@
     left: 250px;
     display: none;
     background-color: #1c273a;
+}
+
+.topBanner {
+    position: absolute;
+    top: -100px;
+    left: -50px;
+    z-index: -1;
+    height: 400px;
+    background-size: cover;
+    width: 100%;
+    background-position: center;
+    background-image: url("img/img2.jpg");
+    text-align: center;
+}
+
+.logo {
+    position: absolute;
+    top: 150px;
+    right: 40px;
+    z-index: 0;
+    width: 300px;
+}
+
+.homeContent {
+    position: absolute;
+    top: 340px;
 }
 
 .friends-box {
