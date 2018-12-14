@@ -19,27 +19,27 @@
     <div class="container-fluid">
         <div class="row">
 
-            <div class="col-xl-2 sidenav">
+            <div class="col-md-2 sidenav">
                 @*<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>*@
                 <a href="@Url.Action("Index", "Home")">Home</a>
-                <a href="@Url.Action("Create", "Post")">Add a Post</a>
                 <a href="@Url.Action("Index", "Post")">Postings</a>
-                <a href="#">Dashboard</a>
+                <a href="@Url.Action("Create", "Post")">Add a Post</a>
                 @if (SignInManager.IsSignedIn(User))
                 {
-                    <a href="/users/@SignInManager.UserManager.GetUserName(User)">Your Profile</a>
                     @await Component.InvokeAsync("Notifications", @SignInManager.UserManager.GetUserName(User));
                 }
                 @if (!SignInManager.IsSignedIn(User))
                 {
-                    <a href="@Url.Action("Login", "Account")">Login</a>
+                    <a href="@Url.Action("Login", "Account")">Login</a> <span>|</span>
                     <a href="@Url.Action("Register", "Account")">Register</a>
-
                 }
             </div>
 
-            <div class="col-xl-10">
+            <div class="col-md-10">
                 @RenderBody()
+
+
+
             </div>
         </div>
     </div>
