@@ -22,10 +22,10 @@
             <div class="col-md-2 sidenav">
                 <a href="@Url.Action("Index", "Home")">Home</a>
                 <a href="@Url.Action("ChatRoom", "Home")">Chat Room</a>
-                <a href="@Url.Action("Index", "Post")">Postings</a>
+                <a href="@Url.Action("Index", "Post")">Activities</a>
                 @if (SignInManager.IsSignedIn(User))
                 {
-                    <a class="mb-5" href="@Url.Action("Create", "Post")">Add a Post</a>
+                    <a class="mb-5" href="@Url.Action("Create", "Post")">+ Activity</a>
                     @await Component.InvokeAsync("Notifications", @SignInManager.UserManager.GetUserName(User));
                     <a href="#">
                         <img class="friendsButton bg-white rounded toggleFriends" src="https://cdn4.iconfinder.com/data/icons/ios7-active-2/512/Contacts.png" />
