@@ -8,3 +8,7 @@ function openNav() {
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
 }
+
+$(".toggleNots").on("click", function () {
+    $(".requests-box").toggle();
+});
