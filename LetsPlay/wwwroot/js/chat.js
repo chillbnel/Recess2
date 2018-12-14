@@ -11,6 +11,12 @@ connection.on("ReceiveMessage", function (user, message) {
     var encodedMsg = user + ': ' + msg;
     var li = document.createElement('li');
     li.textContent = encodedMsg;
+    var currUser = document.getElementById('currentUser');
+
+    if (currUser.value === user) {
+        console.log('i work');
+        li.classList.add('myMessage');
+    }
     document.getElementById('messagesList').appendChild(li);
     list.scrollTop = list.scrollHeight;
 });

@@ -7,21 +7,31 @@
     ViewData["Title"] = "ChatRoom";
     Layout = "_Layout";
 }
-<ul id="messagesList" style="height: 350px; overflow: scroll;">
+<h1>Chat Away!</h1>
+
+<ul id="messagesList">
     @foreach (var item in ((List<GeneralChat>)ViewBag.GeneralChat))
     {
-        <li>@Html.DisplayFor(modelItem => item.User): @Html.DisplayFor(modelItem => item.Message)</li>
+        if (item.User == @SignInManager.UserManager.GetUserName(User).ToString())
+        {
+            <li class="myMessage">@Html.DisplayFor(modelItem => item.User): @Html.DisplayFor(modelItem => item.Message)</li>
+        }
+        else
+        {
+            <li>@Html.DisplayFor(modelItem => item.User): @Html.DisplayFor(modelItem => item.Message)</li>
+        }
     }
 </ul>
 
 @if (SignInManager.IsSignedIn(User))
 {
+    <input value="@SignInManager.UserManager.GetUserName(User)" type="hidden" id="currentUser"/>
     <form method="post" id="sendButton">
         <input asp-for="User" class="form-control" id="userInput" type="hidden" value="@SignInManager.UserManager.GetUserName(User)" />
 
         <label asp-for="Message" class="control-label"></label>
         <input asp-for="Message" class="form-control" id="messageInput" autocomplete="off" />
-        <input type="submit" value="Send Message" />
+        <input class="btn mt-2" type="submit" value="Send Message" />
     </form>
 }
 else
