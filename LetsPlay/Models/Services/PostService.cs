@@ -55,7 +55,8 @@ namespace LetsPlay.Models.Services
         /// <returns>A list of posts</returns>
         public async Task<IEnumerable<Post>> GetLastTenPosts()
         {
-            return await _context.Posts.Take(10).ToListAsync();
+            //return await _context.Posts.Take(10).ToListAsync();
+            return await _context.Posts.OrderByDescending(p => p.ID).Take(10).ToListAsync();
         }
 
         /// <summary>
