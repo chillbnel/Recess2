@@ -31,8 +31,8 @@
         sentRequest = true;
     }
 }
-<div class="row">
-    <dl class="col-md-6">
+<div class="row mt-4">
+    <dl class="col d-inline">
         <dt>@Html.DisplayNameFor(model => model.User.Name)</dt>
         <dd>@Html.DisplayFor(model => model.User.Name)</dd>
         <dt>@Html.DisplayNameFor(model => model.User.GamerTag)</dt>
@@ -42,19 +42,33 @@
         <dt>@Html.DisplayNameFor(model => model.User.Location)</dt>
         <dd>@Html.DisplayFor(model => model.User.Location)</dd>
     </dl>
+
+
+    <div class="col border-left">
+        <p class="border-bottom">@Model.User.UserName's friends:</p>
+        @foreach (var friend in Model.ViewUserFriends)
+        {
+            <a href="/users/@friend.GamerTag" class="d-block">@friend.GamerTag</a>
+        }
+    </div>
+    <div class="col border-left">
+        <p class="border-bottom">@Model.User.UserName's Signed up Events:</p>
+        @foreach (var post in Model.UserSignedupEvents)
+        {
+            <a href="/post/details/@post.ID" class="d-block">@post.Title</a>
+        }
+    </div>
     @if (SignInManager.IsSignedIn(User))
     {
         if (ownProfile)
         {
-            <a href="#">Edit profile</a>
-            <form asp-action="Logout" asp-controller="Account" method="post">
+            <form asp-action="Logout" asp-controller="Account" method="post" class="mr-2">
                 <button type="submit">Logout</button>
             </form>
         }
         else if (isFriend)
         {
-            <p>You are Friends!</p>
-            <form asp-action="RemoveFriend" asp-controller="Friendships" method="post">
+            <form asp-action="RemoveFriend" asp-controller="Friendships" method="post" class="mr-2">
                 <input type="hidden" name="user1" value="@SignInManager.UserManager.GetUserName(User)" />
                 <input type="hidden" name="user2" value="@Model.User.UserName" />
                 <button type="submit">Remove Friend</button>
@@ -62,13 +76,12 @@
         }
         else if (receivedRequest)
         {
-            <p>This player wants to be your friend!</p>
-            <form asp-action="AcceptRequest" asp-controller="Friendships" method="post">
+            <form asp-action="AcceptRequest" asp-controller="Friendships" method="post" class="mr-2">
                 <input type="hidden" name="from" value="@SignInManager.UserManager.GetUserName(User)" />
                 <input type="hidden" name="to" value="@Model.User.UserName" />
                 <button type="submit">Accept</button>
             </form>
-            <form asp-action="RemoveFriend" asp-controller="Friendships" method="post">
+            <form asp-action="RemoveFriend" asp-controller="Friendships" method="post" class="mr-2">
                 <input type="hidden" name="user1" value="@SignInManager.UserManager.GetUserName(User)" />
                 <input type="hidden" name="user2" value="@Model.User.UserName" />
                 <button type="submit">Reject</button>
@@ -76,8 +89,7 @@
         }
         else if (sentRequest)
         {
-            <p>Friend Request Sent!</p>
-            <form asp-action="RemoveFriend" asp-controller="Friendships" method="post">
+            <form asp-action="RemoveFriend" asp-controller="Friendships" method="post"  class="mr-2">
                 <input type="hidden" name="user1" value="@SignInManager.UserManager.GetUserName(User)" />
                 <input type="hidden" name="user2" value="@Model.User.UserName" />
                 <button type="submit">Cancel Friend Request</button>
@@ -85,7 +97,7 @@
         }
         else
         {
-            <form asp-action="SendRequest" asp-controller="Friendships" method="post">
+            <form asp-action="SendRequest" asp-controller="Friendships" method="post"  class="mr-2">
                 <input type="hidden" name="from" value="@SignInManager.UserManager.GetUserName(User)" />
                 <input type="hidden" name="to" value="@Model.User.UserName" />
                 <button type="submit">Send Friend Request</button>
@@ -94,21 +106,6 @@
 
     }
 
-    <div class="col-md-3">
-        <p>@Model.User.UserName's friends:</p>
-    @foreach (var friend in Model.ViewUserFriends)
-    {
-        <a href="/users/@friend.GamerTag">@friend.GamerTag</a>
-    }
-    </div>
-    <div class="col-md-3">
-        <p>@Model.User.UserName's Signed up Events:</p>
-        @foreach (var post in Model.UserSignedupEvents)
-        {
-            <a href="/post/details/@post.ID">@post.Title</a>
-        }
-    </div>
 
-    
 </div>
 
