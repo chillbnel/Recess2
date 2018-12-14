@@ -6,7 +6,7 @@ var list = document.getElementById('messagesList');
 list.scrollTop = list.scrollHeight;
 
 // Parses message and appends to ul
-connection.on("ReceiveMessage", function (user, message) {
+connection.on("ReceiveComment", function (user, message) {
     var msg = message.replace(/&/g, "&amp;").replace(/</g, '&lt;').replace(/>/g, '&gt;');
     var encodedMsg = user + ': ' + msg;
     var li = document.createElement('p');

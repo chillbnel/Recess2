@@ -30,7 +30,7 @@ namespace LetsPlay.Hubs
         // Send message to postRoom
         public async Task SendComment(int postID, string user, string message)
         {
-            await Clients.All.SendAsync("ReceiveMessage", user, message);
+            await Clients.All.SendAsync("ReceiveComment", user, message);
 
             //Stores comments and user with PostID to db
             var newComment = new Comments() { Username = user, PostNumber = postID, Message = message };
