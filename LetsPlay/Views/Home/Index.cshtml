@@ -20,6 +20,7 @@
         <div>
             <a asp-action="Details" asp-route-id="@item.ID" asp-controller="Post"><h2>@Html.DisplayFor(modelItem => item.Title)</h2></a>
             <p>@Html.DisplayFor(modelItem => item.Description)</p>
+            <p>@Html.DisplayFor(modelItem => item.Username)</p>
         </div>
     }
 </div>
