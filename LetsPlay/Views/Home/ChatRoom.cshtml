@@ -14,7 +14,7 @@
     {
         if (item.User == @SignInManager.UserManager.GetUserName(User).ToString())
         {
-            <li class="myMessage">@Html.DisplayFor(modelItem => item.User): @Html.DisplayFor(modelItem => item.Message)</li>
+            <li class="myMessage"><div class="alignRight">@Html.DisplayFor(modelItem => item.Message)</div></li>
         }
         else
         {

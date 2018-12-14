@@ -14,8 +14,6 @@
 </div>
 
 <div class="homeContent">
-
-    <div>
         <h2>New Postings</h2>
         @foreach (var item in (List<Post>)ViewBag.Posts)
         {
@@ -24,5 +22,4 @@
                 <p>@Html.DisplayFor(modelItem => item.Description)</p>
             </div>
         }
-    </div>
 </div>

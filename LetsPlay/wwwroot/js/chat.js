@@ -14,7 +14,6 @@ connection.on("ReceiveMessage", function (user, message) {
     var currUser = document.getElementById('currentUser');
 
     if (currUser.value === user) {
-        console.log('i work');
         li.classList.add('myMessage');
     }
     document.getElementById('messagesList').appendChild(li);
