@@ -4,6 +4,7 @@
     border: 3px solid #eeeeee;
     border-radius: 10px;
     padding: 5px;
+    width: 100%;
 }
 
 .messageBlockContainer {
