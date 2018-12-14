@@ -10,6 +10,10 @@
 
 
 <h1>Let's Play!!!</h1>
+@foreach(var item in (List<ApplicationUser>)ViewBag.Friends)
+{
+    <a href="/users/@Html.DisplayFor(modelItem => item.UserName)">@Html.DisplayFor(modelItem => item.UserName)</a>
+}
 
 <div>
     <h2>New Postings</h2>
