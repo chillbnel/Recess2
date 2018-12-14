@@ -9,10 +9,11 @@ list.scrollTop = list.scrollHeight;
 connection.on("ReceiveMessage", function (user, message) {
     var msg = message.replace(/&/g, "&amp;").replace(/</g, '&lt;').replace(/>/g, '&gt;');
     var encodedMsg = user + ': ' + msg;
-    var li = document.createElement('li');
+    var li = document.createElement('p');
     li.textContent = encodedMsg;
     var currUser = document.getElementById('currentUser');
 
+    //Checks if message is sent from currentUser
     if (currUser.value === user) {
         li.classList.add('myMessage');
         li.textContent = msg;
