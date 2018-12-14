@@ -5,15 +5,15 @@
 @model IEnumerable<ApplicationUser>
 
 
-<div class="profile-nav bg-primary row">
+<div class="profile-nav row">
 
-    <a href="/users/@SignInManager.UserManager.GetUserName(User)"><img src="https://openclipart.org/download/247316/abstract-user-flat-2.svg" width="25" height="25" /> @SignInManager.UserManager.GetUserName(User)</a>
+    <a href="/users/@SignInManager.UserManager.GetUserName(User)"><img class="bg-white rounded-circle" src="https://openclipart.org/download/247316/abstract-user-flat-2.svg" width="25" height="25" /> @SignInManager.UserManager.GetUserName(User)</a>
     <a href="#" class="toggleNots text-danger font-weight-bold notNum">@Model.Count()</a>
 </div>
 
 
-<div class="requests-box bg-primary">
-    <h4>Friend Requests:</h4>
+<div class="requests-box rounded">
+    <h4 class="text-center text-white">Friend Requests:</h4>
     <a href="#" class="toggleNots closeNots">X</a>
     <table>
         <tbody>
