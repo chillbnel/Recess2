@@ -120,8 +120,11 @@
 }
 
 .homeContent {
-    position: absolute;
-    top: 340px;
+    position: fixed;
+    /*right: 0;*/
+    overflow: scroll;
+    top: 400px;
+    height: 70%;
 }
 
 .contentInnerWrapper {
