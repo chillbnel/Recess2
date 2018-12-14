@@ -31,6 +31,14 @@
         sentRequest = true;
     }
 }
+
+<div class="row mt-4 centerplz">
+    <div class="col"></div>
+    <div class="col">
+        <img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" width="250" height="250" />
+    </div>
+    <div class="col"></div>
+</div>
 <div class="row mt-4">
     <dl class="col d-inline">
         <dt>@Html.DisplayNameFor(model => model.User.Name)</dt>
@@ -48,16 +56,20 @@
         <p class="border-bottom">@Model.User.UserName's friends:</p>
         @foreach (var friend in Model.ViewUserFriends)
         {
-            <a href="/users/@friend.GamerTag" class="d-block">@friend.GamerTag</a>
+            <a class="btn btn-outline-secondary d-block mt-2 mb-2" href="/users/@friend.GamerTag">@friend.GamerTag</a>
         }
     </div>
     <div class="col border-left">
         <p class="border-bottom">@Model.User.UserName's Signed up Events:</p>
         @foreach (var post in Model.UserSignedupEvents)
         {
-            <a href="/post/details/@post.ID" class="d-block">@post.Title</a>
+            <a href="/post/details/@post.ID" class="d-block btn btn-outline-primary mt-2 mb-2">@post.Title</a>
         }
     </div>
+
+</div>
+
+<div class="row">
     @if (SignInManager.IsSignedIn(User))
     {
         if (ownProfile)
@@ -69,41 +81,40 @@
             <form asp-action="RemoveFriend" asp-controller="Friendships" method="post" class="mr-2">
                 <input type="hidden" name="user1" value="@SignInManager.UserManager.GetUserName(User)" />
                 <input type="hidden" name="user2" value="@Model.User.UserName" />
-                <button type="submit">Remove Friend</button>
+                <button class="btn btn-outline-danger" type="submit">Remove Friend</button>
             </form>
         }
         else if (receivedRequest)
         {
+            <p class="font-weight-bold mr-3">@Model.User.UserName has sent you a friend request!</p>
             <form asp-action="AcceptRequest" asp-controller="Friendships" method="post" class="mr-2">
                 <input type="hidden" name="from" value="@SignInManager.UserManager.GetUserName(User)" />
                 <input type="hidden" name="to" value="@Model.User.UserName" />
-                <button type="submit">Accept</button>
+                <button class="btn btn-outline-success" type="submit">Accept</button>
             </form>
             <form asp-action="RemoveFriend" asp-controller="Friendships" method="post" class="mr-2">
                 <input type="hidden" name="user1" value="@SignInManager.UserManager.GetUserName(User)" />
                 <input type="hidden" name="user2" value="@Model.User.UserName" />
-                <button type="submit">Reject</button>
+                <button class="btn btn-outline-danger" type="submit">Reject</button>
             </form>
         }
         else if (sentRequest)
         {
-            <form asp-action="RemoveFriend" asp-controller="Friendships" method="post"  class="mr-2">
+            <form asp-action="RemoveFriend" asp-controller="Friendships" method="post" class="mr-2">
                 <input type="hidden" name="user1" value="@SignInManager.UserManager.GetUserName(User)" />
                 <input type="hidden" name="user2" value="@Model.User.UserName" />
-                <button type="submit">Cancel Friend Request</button>
+                <button class="btn btn-outline-danger" type="submit">Cancel Friend Request</button>
             </form>
         }
         else
         {
-            <form asp-action="SendRequest" asp-controller="Friendships" method="post"  class="mr-2">
+            <form asp-action="SendRequest" asp-controller="Friendships" method="post" class="mr-2">
                 <input type="hidden" name="from" value="@SignInManager.UserManager.GetUserName(User)" />
                 <input type="hidden" name="to" value="@Model.User.UserName" />
-                <button type="submit">Send Friend Request</button>
+                <button class="btn btn-outline-primary" type="submit">Send Friend Request</button>
             </form>
         }
 
     }
-
-
 </div>
 
