@@ -10,6 +10,9 @@
     <a href="/users/@SignInManager.UserManager.GetUserName(User)"><img class="bg-white rounded-circle" src="https://openclipart.org/download/247316/abstract-user-flat-2.svg" width="25" height="25" /> @SignInManager.UserManager.GetUserName(User)</a>
     <a href="#" class="toggleNots text-danger font-weight-bold notNum">@Model.Count()</a>
 </div>
+    <form class="w-100 logOutButton " asp-action="Logout" asp-controller="Account" method="post" class="mr-2">
+        <button class="btn btn-outline-secondary btn-sm mb-2 float-left mr-4" type="submit">Logout</button>
+    </form>
 
 
 <div class="requests-box rounded">
