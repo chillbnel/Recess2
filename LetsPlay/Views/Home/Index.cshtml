@@ -10,18 +10,19 @@
 
 
 <h1>Let's Play!!!</h1>
-@foreach(var item in (List<ApplicationUser>)ViewBag.Friends)
-{
-    <a href="/users/@Html.DisplayFor(modelItem => item.UserName)">@Html.DisplayFor(modelItem => item.UserName)</a>
-}
-
-<div>
-    <h2>New Postings</h2>
-    @foreach (var item in (List<Post>)ViewBag.Posts)
-    {
-        <div>
-            <a asp-action="Details" asp-route-id="@item.ID" asp-controller="Post"><h2>@Html.DisplayFor(modelItem => item.Title)</h2></a>
-            <p>@Html.DisplayFor(modelItem => item.Description)</p>
-        </div>
-    }
+<div class="topBanner">
+    <img class="logo" src="~/img/logo.png" />
 </div>
+
+<div class="homeContent">
+
+    <div>
+        <h2>New Postings</h2>
+        @foreach (var item in (List<Post>)ViewBag.Posts)
+        {
+            <div>
+                <a asp-action="Details" asp-route-id="@item.ID" asp-controller="Post"><h2>@Html.DisplayFor(modelItem => item.Title)</h2></a>
+                <p>@Html.DisplayFor(modelItem => item.Description)</p>
+            </div>
+        }
+    </div>
