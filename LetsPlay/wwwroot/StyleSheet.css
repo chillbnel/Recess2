@@ -7,6 +7,7 @@
     width: 100%;
 }
 
+
 .messageBlockContainer {
     width: 80%;
     margin: 0 auto;
@@ -102,9 +103,30 @@
     width: 300px;
 }
 
+.postTitle {
+    margin-left: 10px;
+}
+.card {
+    margin: 10px;
+    min-height: 300px;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+}
+.cardHost {
+    margin-top: auto;
+}
+
 .homeContent {
     position: absolute;
     top: 340px;
+}
+
+.contentInnerWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 .friends-box {

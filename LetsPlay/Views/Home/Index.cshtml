@@ -14,13 +14,18 @@
 </div>
 
 <div class="homeContent">
-    <h2>New Postings</h2>
-    @foreach (var item in (List<Post>)ViewBag.Posts)
-    {
-        <div>
-            <a asp-action="Details" asp-route-id="@item.ID" asp-controller="Post"><h2>@Html.DisplayFor(modelItem => item.Title)</h2></a>
-            <p>@Html.DisplayFor(modelItem => item.Description)</p>
-            <p>@Html.DisplayFor(modelItem => item.Username)</p>
-        </div>
-    }
+    <h2 class="postTitle">New Postings</h2>
+    <div class="contentInnerWrapper">
+        @foreach (var item in (List<Post>)ViewBag.Posts)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><a asp-action="Details" asp-route-id="@item.ID" asp-controller="Post"><h2>@Html.DisplayFor(modelItem => item.Title)</h2></a></h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelItem => item.Game)</h6>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                    <div class="cardHost">Hosted By: <a href="/users/@item.Username" class="card-link">@Html.DisplayFor(modelItem => item.Username)</a></div>
+                </div>
+            </div>
+        }
+    </div>
 </div>
