@@ -1,0 +1,125 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using LetsPlay.Models
+@using LetsPlay.Models.ViewModels
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@model LetsPlay.Models.ViewModels.SignupViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "_Layout";
+    bool isSignedUp = false;
+    var atSign = "@";
+}
+
+
+<div class="container mt-4">
+    <div class="row text-center">
+        <h1 class="col-md-12">
+            @Html.DisplayFor(model => Model.Post.Title)
+        </h1>
+        <h4 class="col-md-12">Hosted By <a href="/users/@Html.DisplayFor(model => Model.Post.Username)">@Html.DisplayFor(model => Model.Post.Username)</a></h4>
+        <p class="col-md-12">@Html.DisplayFor(model => Model.Post.EventDate) <span class="font-weight-bold">@atSign </span>@Html.DisplayFor(model => Model.Post.Location)</p>
+    </div>
+    <div class="row border-top">
+        <div class="col-md-8">
+            <div class="row">
+                <p class="col-md-6"><span class="font-weight-bold">Game: </span>@Html.DisplayFor(model => Model.Post.Game)</p>
+                <p class="col-md-6"><span class="font-weight-bold">Date Posted: </span>@Html.DisplayFor(model => Model.Post.PostedDate)</p>
+            </div>
+            <div class="row">
+                <p class="col-md-6"><span class="font-weight-bold">Type: </span>@Html.DisplayFor(model => Model.Post.Type)</p>
+                <p class="col-md-6"><span class="font-weight-bold">Category: </span>@Html.DisplayFor(model => Model.Post.Category)</p>
+            </div>
+            <p><span class="font-weight-bold">Description: </span>@Html.DisplayFor(model => Model.Post.Description)</p>
+            <div class="row">
+                <p class="col-md-6"><span class="font-weight-bold">Minimum Players Needed: </span>@Model.Post.MinPlayers</p>
+                <p class="col-md-6"><span class="font-weight-bold">Maximum Player Signups Allowed: </span>@Model.Post.MaxPlayers</p>
+            </div>
+
+        </div>
+        <div class="col-md-4 border-left">
+
+            <p>Players Signed Up: @Model.SignUps.Count()/@Model.Post.MaxPlayers</p>
+            @foreach (var user in Model.SignUps)
+            {
+                <a href="/users/@user.Username" class="d-block">@user.Username</a>
+                if (user.Username == SignInManager.UserManager.GetUserName(User))
+                {
+                    isSignedUp = true;
+                }
+            }
+            <p>Spots Left: @(Model.Post.MaxPlayers - Model.SignUps.Count())</p>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                if (!isSignedUp)
+                {
+                    if (Model.SignUps.Count() >= Model.Post.MaxPlayers)
+                    {
+                        <p>This event is full!</p>
+                    }
+                    else
+                    {
+                        <form asp-controller="Post" asp-action="SignUpForEvent">
+                            <input type="hidden" name="Username" value="@SignInManager.UserManager.GetUserName(User)" />
+                            <input type="hidden" name="PostID" value="@Model.Post.ID" />
+                            <button type="submit">Join Event</button>
+                        </form>
+                    }
+                }
+                else
+                {
+                    <form asp-controller="Post" asp-action="RemoveSignUpForEvent">
+                        <input type="hidden" name="userName" value="@SignInManager.UserManager.GetUserName(User)" />
+                        <input type="hidden" name="postID" value="@Model.Post.ID" />
+                        <button type="submit">Remove Me</button>
+                    </form>
+                }
+            }
+            else
+            {
+                <p><a asp-controller="Account" asp-action="Login">Login</a> or <a asp-controller="Account" asp-action="Register">Register</a> to start playing games.</p>
+            }
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div id="messagesList">
+            @foreach (var item in Model.Comments)
+            {
+                if (SignInManager.IsSignedIn(User))
+                {
+
+                    if (item.Username == @SignInManager.UserManager.GetUserName(User).ToString())
+                    {
+                        <div class="messageBlock clearFix"><p class="myMessage">@Html.DisplayFor(modelItem => item.Message)</p></div>
+                    }
+                    else
+                    {
+                        <div class="messageBlock clearFix"><p class="otherMessage"><span class="bold">@Html.DisplayFor(modelItem => item.Username)</span>: @Html.DisplayFor(modelItem => item.Message)</p></div>
+                    }
+                }
+                else
+                {
+                    <div class="messageBlock clearFix"><p class="otherMessage"><span class="bold">@Html.DisplayFor(modelItem => item.Username)</span>: @Html.DisplayFor(modelItem => item.Message)</p></div>
+
+                }
+            }
+        </div>
+        @if (SignInManager.IsSignedIn(User))
+        {
+        <form method="post" class="w-100" id="sendComment">
+            <input value="@SignInManager.UserManager.GetUserName(User)" type="hidden" id="currentUser" />
+
+            <input class="form-control d-inline" id="userInput" type="hidden" value="@SignInManager.UserManager.GetUserName(User)" />
+            <input type="hidden" value="@Model.Post.ID" id="postID" />
+            <label class="control-label"></label>
+            <label for="Message" class="control-label mt-5">Message</label>
+            <input class="form-control" id="messageInput" autocomplete="off" required />
+            <input class="btn mt-2" type="submit" value="Send Message" />
+        </form>
+        }
+    </div>
+</div>
+
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/comment.js"></script>

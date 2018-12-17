@@ -1,0 +1,55 @@
+﻿
+@using Microsoft.AspNetCore.Identity
+@using LetsPlay.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+    ViewData["Title"] = "Create";
+    Layout = "_Layout";
+    string time = DateTime.Now.ToString("h:mm:ss tt");
+}
+@model LetsPlay.Models.Post
+
+<h2>Create</h2>
+
+<form asp-action="Create" asp-controller="Post">
+    <label asp-for="Title" class="control-label"></label>
+    <input asp-for="Title" class="form-control" />
+    <span asp-validation-for="Title" class="text-danger"></span>
+
+    <label asp-for="Game" class="control-label"></label>
+    <input asp-for="Game" class="form-control" />
+    <span asp-validation-for="Game" class="text-danger"></span>
+
+    <label asp-for="Description" class="control-label"></label>
+    <textarea asp-for="Description" class="form-control"></textarea>
+    <span asp-validation-for="Description" class="text-danger"></span>
+
+    <label asp-for="Type" class="control-label"></label>
+    <select asp-for="Type" class="form-control" asp-items="@Html.GetEnumSelectList(typeof(LetsPlay.Models.EventType))"></select>
+    <span asp-validation-for="Type" class="text-danger"></span>
+
+    <label asp-for="Category" class="control-label"></label>
+    <select asp-for="Category" class="form-control" asp-items="@Html.GetEnumSelectList(typeof(LetsPlay.Models.Category))"></select>
+    <span asp-validation-for="Category" class="text-danger"></span>
+
+    <label asp-for="EventDate" class="control-label"></label>
+    <input asp-for="EventDate" type="datetime-local" class="form-control" />
+    <span asp-validation-for="EventDate" class="text-danger"></span>
+
+    <label asp-for="MinPlayers " class="control-label"></label>
+    <input asp-for="MinPlayers" type="text" class="form-control" />
+    <span asp-validation-for="MinPlayers" class="text-danger"></span>
+
+    <label asp-for="MaxPlayers" class="control-label"></label>
+    <input asp-for="MaxPlayers" type="text" class="form-control" />
+    <span asp-validation-for="MaxPlayers" class="text-danger"></span>
+
+    <label asp-for="Location" class="control-label"></label>
+    <input asp-for="Location" class="form-control" />
+    <span asp-validation-for="Location" class="text-danger"></span>
+
+    <input type="hidden" name="Username" value="@SignInManager.UserManager.GetUserName(User)" />
+    <input type="hidden" name="PostedDate" value="@time" />
+
+    <input type="submit" value="Create" class="btn btn-default" />
+</form>

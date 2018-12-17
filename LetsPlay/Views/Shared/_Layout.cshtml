@@ -1,0 +1,64 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using LetsPlay.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">*@
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="~/StyleSheet.css" rel="stylesheet" />
+
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-2 sidenav">
+                <a href="@Url.Action("Index", "Home")">Home</a>
+                <a href="@Url.Action("ChatRoom", "Home")">Chat Room</a>
+                <a href="@Url.Action("Index", "Post")">Activities</a>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <a class="mb-5" href="@Url.Action("Create", "Post")">+ Activity</a>
+                    @await Component.InvokeAsync("Notifications", @SignInManager.UserManager.GetUserName(User));
+                    <a href="#">
+                        <img class="friendsButton bg-white rounded toggleFriends" src="https://cdn4.iconfinder.com/data/icons/ios7-active-2/512/Contacts.png" />
+                    </a>
+                    @await Component.InvokeAsync("FriendList", @SignInManager.UserManager.GetUserName(User));
+                }
+                @if (!SignInManager.IsSignedIn(User))
+                {
+                    <a href="@Url.Action("Login", "Account")">Login</a>
+                    <a href="@Url.Action("Register", "Account")">Register</a>
+                }
+            </div>
+
+
+            <div class="col-md-10 allContent">
+                @RenderBody()
+
+            </div>
+        </div>
+    </div>
+    <!-- Use any element to open the sidenav -->
+    @*<span onclick="openNav()">open</span>*@
+
+    <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+    @*<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>*@
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="~/JavaScript.js"></script>
+    @*<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+        <script src="~/js/chat.js"></script>*@
+    @RenderSection("scripts", required: false)
+</body>
+</html>

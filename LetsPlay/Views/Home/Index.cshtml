@@ -1,0 +1,33 @@
+﻿@using LetsPlay.Models
+@using Microsoft.AspNetCore.Identity;
+@model LetsPlay.Models.GeneralChat
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    ViewData["Title"] = "Home";
+    Layout = "_Layout";
+}
+
+
+<div class="vidContainer">
+    <video class="topBannerVideo" autoplay muted loop id="myVideo">
+        <source src="~/img/lowpoly.mp4" type="video/mp4">
+    </video>
+    <img class="logo" src="~/img/recess_logo.png" />
+</div>
+
+<div class="homeContent">
+    <div class="contentInnerWrapper">
+        @foreach (var item in (List<Post>)ViewBag.Posts)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><a asp-action="Details" asp-route-id="@item.ID" asp-controller="Post"><h2>@Html.DisplayFor(modelItem => item.Title)</h2></a></h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelItem => item.Game)</h6>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                    <div class="cardHost">Hosted By: <a href="/users/@item.Username" class="card-link">@Html.DisplayFor(modelItem => item.Username)</a></div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,40 @@
+﻿@model LetsPlay.Models.ViewModels.RegisterViewModel
+
+
+@{
+    Layout = "_Layout";
+}
+
+<h2>Register</h2>
+
+<form method="post">
+    <label asp-for="Name" class="control-label"></label>
+    <input asp-for="Name" class="form-control" />
+    <span asp-validation-for="Name" class="text-danger"></span>
+
+    <label asp-for="GamerTag" class="control-label"></label>
+    <input asp-for="GamerTag" class="form-control" />
+    <span asp-validation-for="GamerTag" class="text-danger"></span>
+
+    <label asp-for="Email" class="control-label"></label>
+    <input asp-for="Email" class="form-control" />
+    <span asp-validation-for="Email" class="text-danger"></span>
+
+    <label asp-for="Age" class="control-label"></label>
+    <input asp-for="Age" class="form-control" />
+    <span asp-validation-for="Age" class="text-danger"></span>
+
+    <label asp-for="Location" class="control-label"></label>
+    <input asp-for="Location" class="form-control" />
+    <span asp-validation-for="Location" class="text-danger"></span>
+
+    <label asp-for="Password" class="control-label"></label>
+    <input asp-for="Password" class="form-control" />
+    <span asp-validation-for="Password" class="text-danger"></span>
+
+    <label asp-for="ConfirmPassword" class="control-label"></label>
+    <input asp-for="ConfirmPassword" class="form-control" />
+    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+
+    <button type="submit">Register!</button>
+</form>

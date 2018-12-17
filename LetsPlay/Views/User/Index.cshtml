@@ -1,0 +1,120 @@
+﻿@model LetsPlay.Models.ViewModels.FriendshipsViewModel
+@using Microsoft.AspNetCore.Identity
+@using LetsPlay.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    Layout = "_Layout";
+    bool isFriend = false;
+    bool receivedRequest = false;
+    bool sentRequest = false;
+    bool ownProfile = false;
+
+    @if (Model.User.UserName == SignInManager.UserManager.GetUserName(User))
+    {
+        ownProfile = true;
+    }
+
+    if (Model.Friends.Contains(Model.User))
+    {
+        isFriend = true;
+    }
+
+    if (Model.ReceivedRequests.Contains(Model.User))
+    {
+        receivedRequest = true;
+    }
+
+    if (Model.SentRequests.Contains(Model.User))
+    {
+        sentRequest = true;
+    }
+}
+
+<div class="row mt-4 centerplz">
+    <div class="col"></div>
+    <div class="col">
+        <img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" width="250" height="250" />
+    </div>
+    <div class="col"></div>
+</div>
+<div class="row mt-4">
+    <dl class="col d-inline">
+        <dt>@Html.DisplayNameFor(model => model.User.Name)</dt>
+        <dd>@Html.DisplayFor(model => model.User.Name)</dd>
+        <dt>@Html.DisplayNameFor(model => model.User.GamerTag)</dt>
+        <dd>@Html.DisplayFor(model => model.User.GamerTag)</dd>
+        <dt>@Html.DisplayNameFor(model => model.User.Age)</dt>
+        <dd>@Html.DisplayFor(model => model.User.Age)</dd>
+        <dt>@Html.DisplayNameFor(model => model.User.Location)</dt>
+        <dd>@Html.DisplayFor(model => model.User.Location)</dd>
+    </dl>
+
+
+    <div class="col border-left">
+        <p class="border-bottom">@Model.User.UserName's friends:</p>
+        @foreach (var friend in Model.ViewUserFriends)
+        {
+            <a class="btn btn-outline-secondary d-block mt-2 mb-2" href="/users/@friend.GamerTag">@friend.GamerTag</a>
+        }
+    </div>
+    <div class="col border-left">
+        <p class="border-bottom">@Model.User.UserName's Signed up Events:</p>
+        @foreach (var post in Model.UserSignedupEvents)
+        {
+            <a href="/post/details/@post.ID" class="d-block btn btn-outline-primary mt-2 mb-2">@post.Title</a>
+        }
+    </div>
+
+</div>
+
+<div class="row">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        if (ownProfile)
+        {
+
+        }
+        else if (isFriend)
+        {
+            <form asp-action="RemoveFriend" asp-controller="Friendships" method="post" class="mr-2">
+                <input type="hidden" name="user1" value="@SignInManager.UserManager.GetUserName(User)" />
+                <input type="hidden" name="user2" value="@Model.User.UserName" />
+                <button class="btn btn-outline-danger" type="submit">Remove Friend</button>
+            </form>
+        }
+        else if (receivedRequest)
+        {
+            <p class="font-weight-bold mr-3">@Model.User.UserName has sent you a friend request!</p>
+            <form asp-action="AcceptRequest" asp-controller="Friendships" method="post" class="mr-2">
+                <input type="hidden" name="from" value="@SignInManager.UserManager.GetUserName(User)" />
+                <input type="hidden" name="to" value="@Model.User.UserName" />
+                <button class="btn btn-outline-success" type="submit">Accept</button>
+            </form>
+            <form asp-action="RemoveFriend" asp-controller="Friendships" method="post" class="mr-2">
+                <input type="hidden" name="user1" value="@SignInManager.UserManager.GetUserName(User)" />
+                <input type="hidden" name="user2" value="@Model.User.UserName" />
+                <button class="btn btn-outline-danger" type="submit">Reject</button>
+            </form>
+        }
+        else if (sentRequest)
+        {
+            <form asp-action="RemoveFriend" asp-controller="Friendships" method="post" class="mr-2">
+                <input type="hidden" name="user1" value="@SignInManager.UserManager.GetUserName(User)" />
+                <input type="hidden" name="user2" value="@Model.User.UserName" />
+                <button class="btn btn-outline-danger" type="submit">Cancel Friend Request</button>
+            </form>
+        }
+        else
+        {
+            <form asp-action="SendRequest" asp-controller="Friendships" method="post" class="mr-2">
+                <input type="hidden" name="from" value="@SignInManager.UserManager.GetUserName(User)" />
+                <input type="hidden" name="to" value="@Model.User.UserName" />
+                <button class="btn btn-outline-primary" type="submit">Send Friend Request</button>
+            </form>
+        }
+
+    }
+</div>
+

@@ -1,0 +1,51 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using LetsPlay.Models
+@inject SignInManager<ApplicationUser> SignInManager
+
+@model IEnumerable<ApplicationUser>
+
+
+<div class="profile-nav row">
+
+    <a href="/users/@SignInManager.UserManager.GetUserName(User)"><img class="bg-white rounded-circle" src="https://openclipart.org/download/247316/abstract-user-flat-2.svg" width="25" height="25" /> @SignInManager.UserManager.GetUserName(User)</a>
+    <a href="#" class="toggleNots text-danger font-weight-bold notNum">@Model.Count()</a>
+</div>
+    <form class="w-100 logOutButton " asp-action="Logout" asp-controller="Account" method="post" class="mr-2">
+        <button class="btn btn-outline-secondary btn-sm mb-2 float-left mr-4" type="submit">Logout</button>
+    </form>
+
+
+<div class="requests-box rounded">
+    <h4 class="text-center text-white">Friend Requests:</h4>
+    <a href="#" class="toggleNots closeNots">X</a>
+    <table>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        <a href="/users/@item.GamerTag">@item.GamerTag</a>
+                    </td>
+                    <td>
+
+                        <form asp-action="AcceptRequest" asp-controller="Friendships" method="post">
+                            <input type="hidden" name="from" value="@SignInManager.UserManager.GetUserName(User)" />
+                            <input type="hidden" name="to" value="@item.UserName" />
+                            <button class="btn btn-success" type="submit">Accept</button>
+                        </form>
+                    </td>
+
+                    <td>
+                        <form asp-action="RemoveFriend" asp-controller="Friendships" method="post">
+                            <input type="hidden" name="user1" value="@SignInManager.UserManager.GetUserName(User)" />
+                            <input type="hidden" name="user2" value="@item.UserName" />
+                            <button class="btn btn-danger" type="submit">Reject</button>
+                        </form>
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>
